@@ -13,6 +13,7 @@ const AuthButton = ({ btnText, data }) => {
 
     if (path === "/ForgotPassword") {
       try {
+        setLoading(true);
         const request = await axios.post(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/authentication/forgotPassword`,
           data,
@@ -25,9 +26,11 @@ const AuthButton = ({ btnText, data }) => {
         const info = request.data;
         toast.success(info.message);
         router.push(`/Verify/${encodeURIComponent(data.email)}`);
+        setLoading(false);
         return;
       } catch (error) {
         toast.error(error?.response?.data?.error || "Something went wrong.");
+        setLoading(false);
         return;
       }
     } else if (path === "/Login") {
@@ -54,6 +57,7 @@ const AuthButton = ({ btnText, data }) => {
       }
     } else if (path.startsWith("/Verify")) {
       try {
+        setLoading(true);
         const request = await axios.post(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/authentication/otpVerification`,
           data,
@@ -68,15 +72,18 @@ const AuthButton = ({ btnText, data }) => {
         toast.success(info.message || "OTP Verified");
         console.log(data.emails, "data");
         router.push(`/ResetPassword/${encodeURIComponent(data.emails)}`);
+        setLoading(false);
         return;
       } catch (error) {
         toast.error(
           error?.response?.data?.message || "OTP verification failed."
         );
+        setLoading(false);
         return;
       }
     } else if (path.startsWith("/Reset")) {
       try {
+        setLoading(true);
         const request = await axios.post(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/authentication/resetPassword`,
           data,
@@ -89,10 +96,13 @@ const AuthButton = ({ btnText, data }) => {
         const info = request.data;
         console.log("Password Reset:", info);
         toast.success(info.message || "Password Reset Successful");
+        setLoading(false);
         router.push("/Login");
+
         return;
       } catch (error) {
         toast.error(error?.response?.data?.error);
+        setLoading(false);
         return;
       }
     }
