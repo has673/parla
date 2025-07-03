@@ -21,10 +21,10 @@ const Sidebar = () => {
           <div className="mb-6">
             <ul>
               <li className="mb-6 mx-6">
-                <Link href="/UserDashboard/Profile">
+                <Link href="/HomeScreen">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
-                      isActive("/UserDashboard/Profile")
+                      isActive("/HomeScreen")
                         ? "bg-[var(--orange)] text-white mx-3"
                         : "text-[#202224]  mx-3"
                     }`}

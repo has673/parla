@@ -2,7 +2,7 @@
 import Image from "next/image";
 import SidebarModal from "../Modals/SidebarModal";
 
-export default function HeaderTab({ links, activeTab, setActiveTab }) {
+export default function HeaderTab({ links, activeTab, setActiveTab, title }) {
   return (
     <header className="flex flex-col md:flex-row justify-between p-4 py-0 border-b border-b-[#ECEAEA] bg-white w-full gap-y-2 md:gap-y-0">
       {/* Logo Section */}
@@ -18,7 +18,7 @@ export default function HeaderTab({ links, activeTab, setActiveTab }) {
       {/* Tabs Section */}
       <div className="flex-1 flex flex-row justify-between items-end md:px-14 overflow-x-auto">
         <h3 className="text-[#1E232C] md:text-xl text-sm font-bold md:py-3">
-          Appointment details
+          {title}
         </h3>
 
         <nav>
@@ -27,7 +27,7 @@ export default function HeaderTab({ links, activeTab, setActiveTab }) {
               <li key={path} className="h-full flex">
                 <button
                   onClick={() => setActiveTab(path)}
-                  className={`px-2 border-b-3 focus:outline-none ${
+                  className={`px-2 border-b-3 focus:outline-none  ${
                     activeTab === path
                       ? "border-[var(--orange)] text-[var(--orange)] pb-2"
                       : "border-transparent"

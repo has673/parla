@@ -3,23 +3,50 @@ import Image from "next/image";
 import PeopleCard from "../Card/PeopleCard";
 import { useEffect, useState } from "react";
 import { getDashboardData } from "@/app/actions/getDashboardData";
-import DiscountCard from "../Card/DiscountCard";
+import ReactPaginate from "react-paginate";
+import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import ProviderCard from "../Card/ProviderCard";
+import { Loader } from "../Loader";
 
 export const TabLayout = ({ type }) => {
+  const [itemOffset, setItemOffset] = useState(0);
+  const [providers, setProviders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // default page is 1
+
+  const itemsPerPage = 3;
+  const [loading, setLoading] = useState(false);
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = providers.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(providers.length / itemsPerPage);
+
+  const handlePageClick = (event) => {
+    const selectedPage = event.selected + 1; // pages are 0-indexed in ReactPaginate
+    setCurrentPage(selectedPage);
+    const newOffset = ((selectedPage - 1) * itemsPerPage) % providers.length;
+    setItemOffset(newOffset);
+  };
+
+  const token = localStorage.getItem("token");
   const [gender, setGender] = useState("male");
   const fetchDashboardData = async () => {
-    //   setLoading(true);
-    const data = await getDashboardData(type, gender);
+    setLoading(true);
+    const data = await getDashboardData(type, gender, token, currentPage);
     console.log(data);
-    // if (data) {
-    //     setPets(data?.datas || []);
-    //     setLoading(false);
-    //     return;
-    //   }
+    if (data.status === 200 && data?.datas.length > 0) {
+      setProviders(data?.datas || []);
+      setLoading(false);
+      return;
+    } else {
+      if (data?.datas.length === 0) {
+        setProviders(data?.datas || []);
+        setLoading(false);
+      }
+    }
   };
+  console.log(providers);
   useEffect(() => {
     fetchDashboardData();
-  }, [gender]);
+  }, [gender, type]);
   return (
     <div>
       {/* Row of PeopleCards */}
@@ -30,16 +57,18 @@ export const TabLayout = ({ type }) => {
         <PeopleCard Name="Alice Brown" />
         <PeopleCard Name="Rachel Green" />
       </div>
-
       {/* Full-width image at the bottom */}
       <div className="relative w-full h-[148px] mt-6 rounded-lg overflow-hidden ">
         <Image src="/main.png" alt="Banner" fill className="object-cover" />
       </div>
-      <div className="flex justify-center gap-6 py-4">
+      <div className="flex justify-around gap-6 py-4">
         {/* Male */}
+
+        <h3 className="text-[22px] text-[#1D1B1B] font-medium px-4 ">{` ${providers.length} Results`}</h3>
+
         <h3
           onClick={() => setGender("male")}
-          className={`cursor-pointer text-[22px] font-medium px-4 py-2 rounded-lg transition-all duration-200
+          className={`cursor-pointer text-[22px] font-medium px-4 rounded-lg transition-all duration-200
           ${gender === "male" ? " text-[#FF6B00]" : " text-[#000000C9]"}
         `}
         >
@@ -47,16 +76,47 @@ export const TabLayout = ({ type }) => {
         </h3>
 
         {/* Female */}
-        <h3
+        <div
           onClick={() => setGender("female")}
-          className={`cursor-pointer text-[22px] font-medium px-4 py-2 rounded-lg transition-all duration-200
+          className={`cursor-pointer text-[22px] font-medium px-4  rounded-lg transition-all duration-200 flex gap-x-3
           ${gender === "female" ? " text-[#FF6B00]" : " text-[#000000C9]"}
         `}
         >
           Female
-        </h3>
+          <Image src="/female.png" width={16} height={16} />
+        </div>
+        <button className="bg-[#FF6B00] rounded-md h-8 w-8 flex justify-center items-center ">
+          <Image src="/filter.png" width={12} height={12} alt="filter" />
+        </button>
       </div>
-      <DiscountCard />
+      {loading ? (
+        <Loader />
+      ) : providers.length > 0 ? (
+        providers.map((provider, idx) => (
+          <ProviderCard provider={provider} key={idx} />
+        ))
+      ) : (
+        <div className="text-center text-gray-500 py-4">
+          No providers found.
+        </div>
+      )}
+
+      <div className="flex flex-row justify-center">
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel=<ArrowBigRight color="#ff6b00" />
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel=<ArrowBigLeft color="#ff6b00" />
+          renderOnZeroPageCount={null}
+          containerClassName="flex mt-4 gap-2 cursor-pointer"
+          pageClassName="px-3 py-1 border border-gray-300 rounded "
+          previousClassName="mt-1 "
+          nextClassName="mt-1"
+          activeClassName="bg-[#ff6b00] "
+        />
+      </div>
     </div>
   );
 };

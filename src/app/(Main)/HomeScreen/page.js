@@ -1,40 +1,36 @@
 "use client";
-import React, { useEffect } from "react";
-import PeopleCard from "../../../../Components/Card/PeopleCard";
-import Image from "next/image";
-// import { getDashboardData } from "@/app/actions/getDashboardData";
+import React, { useState } from "react";
+import HeaderTab from "../../../../Components/Layout/HeaderTab";
+import { TabLayout } from "../../../../Components/Layout/TabLayout";
+import Sidebar from "../../../../Components/Layout/Sidebar";
 
-const Hair = () => {
-  // const fetchDashboardData = async () => {
-  //   setLoading(true);
-  //   const data = await getDashboardData(userId);
-  //   if (data) {
-  //     setPets(data?.datas || []);
-  //     setLoading(false);
-  //     return;
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchDashboardData();
-  // }, []);
+// Define your tabs and their labels
+const TABS = [
+  { path: "hair", label: "Hair" },
+  { path: "massage", label: "Massage" },
+  { path: "beauty", label: "Beauty" },
+];
+
+const HomeScreen = () => {
+  const [activeTab, setActiveTab] = useState("hair"); // default
+
   return (
     <div>
-      <div className="flex flex-row  justify-around  px-3 py-6">
-        <PeopleCard Name="John Doe" />
-        <PeopleCard Name="John Doe" />
-        <PeopleCard Name="John Doe" />
-        <PeopleCard Name="John Doe" />
-        <PeopleCard Name="John Doe" />
-      </div>
-      <div className="relative md:w-full h-[148px] ">
-        <Image
-          src="/main.png"
-          fill
-          className="object-cover flex justify-center items-center p-3 rounded-lg"
-        />
+      <HeaderTab
+        links={TABS}
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+      />
+      <div className="flex">
+        <Sidebar />
+        <div className="min-h-screen w-full p-4">
+          {activeTab === "hair" && <TabLayout type="hair" />}
+          {activeTab === "massage" && <TabLayout type="massage" />}
+          {activeTab === "beauty" && <TabLayout type="beauty" />}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Hair;
+export default HomeScreen;
