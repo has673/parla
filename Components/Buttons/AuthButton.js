@@ -48,6 +48,9 @@ const AuthButton = ({ btnText, data }) => {
         const info = request.data;
         toast.success(info.message || "Logged in successfully");
         // You can redirect here if needed
+        console.log(info.token);
+        localStorage.setItem("token", info.token);
+        router.push("/HomeScreen");
         setLoading(false);
         return;
       } catch (error) {

@@ -44,11 +44,11 @@ const SidebarModal = () => {
               <li className="mb-6">
                 <Link
                   onClick={() => setIsOpen(false)}
-                  href="/UserDashboard/Profile"
+                  href="/UserDashboard/HomeScreen"
                 >
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
-                      isActive("/UserDashboard/Profile")
+                      isActive("/UserDashboard/HomeScreen")
                         ? "bg-[var(--orange)] text-white"
                         : "text-[#202224]"
                     }`}
@@ -57,8 +57,8 @@ const SidebarModal = () => {
                       <Image
                         src="/images/home.png"
                         alt="Pet Profile icon"
-                        width={20}
-                        height={20}
+                        width={18}
+                        height={18}
                         className="object-contain"
                       />
                     </div>

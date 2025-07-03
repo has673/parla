@@ -1,7 +1,7 @@
 import Header from "../../../Components/Layout/Header";
 import Sidebar from "../../../Components/Layout/Sidebar";
 
-export default function RootLayout({ children }) {
+export default function AppointmentLayout({ children }) {
   return (
     <html lang="en">
       <body>

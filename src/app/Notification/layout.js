@@ -1,6 +1,6 @@
 import Header from "../../../Components/Layout/Header";
 import Sidebar from "../../../Components/Layout/Sidebar";
-export default function RootLayout({ children }) {
+export default function NotificationLayout({ children }) {
   return (
     <html lang="en">
       <body>
