@@ -18,9 +18,14 @@ const Sidebar = () => {
       <div>
         <div className="flex-1 ">
           {/* MENU Section */}
-          <div className="mb-6">
+          <div className="mb-6 py-2">
             <ul>
-              <li className="mb-6 mx-6">
+              <li
+                className={`mb-6   px-4  ${
+                  isActive(["/HomeScreen"]) &&
+                  "border-l border-l-[var(--orange)]"
+                } `}
+              >
                 <Link href="/HomeScreen">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
@@ -33,8 +38,8 @@ const Sidebar = () => {
                       <Image
                         src="/images/home.png"
                         alt="Pet Profile icon"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="object-contain"
                       />
                     </div>
@@ -42,7 +47,11 @@ const Sidebar = () => {
                   </div>
                 </Link>
               </li>
-              <li className="mb-6 mx-6">
+              <li
+                className={`mb-6   px-4  ${
+                  isActive(["/Explore"]) && "border-l border-l-[var(--orange)]"
+                } `}
+              >
                 <Link href="/UserDashboard/Quotation">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
@@ -59,8 +68,8 @@ const Sidebar = () => {
                             : "/images/explore.png"
                         }
                         alt="Pet Profile icon"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="object-contain"
                       />
                     </div>
@@ -71,9 +80,9 @@ const Sidebar = () => {
               <li
                 className={`mb-6   px-4  ${
                   isActive([
-                    "/Appointments",
+                    "/Appointment/Appointments",
                     "/CancelAppointment",
-                    "/Waiting",
+                    "/Appointment/Waiting",
                     "/SingleAppointment",
                     "/AppointmentDetail",
                     "/AppointentHistory",
@@ -84,7 +93,7 @@ const Sidebar = () => {
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
                       isActive([
-                        "/Appointments",
+                        "/Appointment/Appointments",
                         "/CancelAppointment",
                         "/Waiting",
                         "/SingleAppointment",
@@ -110,8 +119,8 @@ const Sidebar = () => {
                             : "/images/appoint.png"
                         }
                         alt=" icon"
-                        width={20}
-                        height={20}
+                        width={16}
+                        height={16}
                         className="object-contain"
                       />
                     </div>
