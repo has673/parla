@@ -133,10 +133,10 @@ const Sidebar = () => {
                   isActive("/Favorite") && "border-l border-l-[var(--orange)]"
                 } `}
               >
-                <Link href="/UserDashboard/Payment">
+                <Link href="/Favorite">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
-                      isActive("/UserDashboard/Payment")
+                      isActive("/Favorite")
                         ? "bg-[var(--orange)] text-white mx-3"
                         : "text-[#202224] mx-3"
                     }`}
