@@ -11,7 +11,7 @@ export default function Header({ links }) {
   return (
     <header className="flex flex-col md:flex-row justify-between p-4 py-0 border-b border-b-[#ECEAEA] bg-white w-full gap-y-2 md:gap-y-0">
       {/* Left side - logo and title */}
-      <div className="flex md:flex-row justify-center flex-col ">
+      <div className="flex md:flex-row justify-center flex-col my-2 ">
         {" "}
         <div className="flex items-center md:flex-row flex-col  gap-2  ">
           <Image src="/logo.png" alt="Logo" width={80} height={80} />
@@ -21,7 +21,7 @@ export default function Header({ links }) {
         </div>
       </div>
 
-      <div className="flex-1 flex flex-row justify-between items-end md:px-14 overflow-x-auto ">
+      <div className="flex-1 flex flex-row justify-between items-end md:pepx-14 overflow-x-auto ">
         <h3 className="text-[#1E232C] md:text-xl text-sm font-bold md:py-3">
           Appointment details
         </h3>

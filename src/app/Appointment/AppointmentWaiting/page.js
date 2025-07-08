@@ -1,7 +1,7 @@
 import React from "react";
 import AppointmentCard from "../../../../Components/Card/AppointmentCard";
 
-const AppointmentHistory = () => {
+const AppointmentWaiting = () => {
   return (
     <div className="px-4">
       <div className="my-2">
@@ -12,4 +12,4 @@ const AppointmentHistory = () => {
   );
 };
 
-export default AppointmentHistory;
+export default AppointmentWaiting;

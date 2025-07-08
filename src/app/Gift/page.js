@@ -6,15 +6,18 @@ import HeaderTab from "../../../Components/Layout/HeaderTab";
 import Favourite from "../../../Components/Layout/favourite";
 import AppointmentButton from "../../../Components/Buttons/AppointmentButton";
 import Badge from "../../../Components/Card/Badge";
+import Image from "next/image";
+import StampcardInfo from "../../../Components/StampInfo";
+import StampCardList from "../../../Components/StampCardList";
 
 // Define your tabs and their labels
 const TABS = [
-  { path: "salon", label: "Salon" },
-  { path: "professionals", label: "Professionals" },
+  { path: "gift", label: "Gift" },
+  { path: "works", label: "How does it works" },
 ];
 
-const Favorite = () => {
-  const [activeTab, setActiveTab] = useState("salon"); // default
+const StampCard = () => {
+  const [activeTab, setActiveTab] = useState("stampcard"); // default
 
   return (
     <div>
@@ -22,20 +25,19 @@ const Favorite = () => {
         links={TABS}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        title="Favourite"
+        title="Gift"
       />
+
       <div className="flex">
         <Sidebar />
+
         <div className="min-h-screen w-full p-4">
-          {activeTab === "salon" && <Favourite type="salon" />}
-          {activeTab === "professionals" && <Favourite type="professionals" />}
-          <div className="flex w-full justify-center md:justify-end">
-            <AppointmentButton className="text-white rounded-[10px] text-[11px] font-semibold py-4 px-2 bg-[var(--orange)] " />
-          </div>
+          {activeTab === "stampcard" && <StampCardList />}
+          {activeTab === "works" && <StampcardInfo />}
         </div>
       </div>
     </div>
   );
 };
 
-export default Favorite;
+export default StampCard;

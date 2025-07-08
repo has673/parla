@@ -7,9 +7,9 @@ export default function AppointmentLayout({ children }) {
       <body>
         <Header
           links={[
-            { path: "/Active", label: "Active" },
-            { path: "/Waiting", label: "Waiting" },
-            { path: "/History", label: "History" },
+            { path: "/Appointment/Appointments", label: "Active" },
+            { path: "/Appointment/AppointmentWaiting", label: "Waiting" },
+            { path: "/Appointment/AppointmentHistory", label: "History" },
           ]}
         />
         <div className="flex">

@@ -81,24 +81,24 @@ const Sidebar = () => {
                 className={`mb-6   px-4  ${
                   isActive([
                     "/Appointment/Appointments",
-                    "/CancelAppointment",
-                    "/Appointment/Waiting",
-                    "/SingleAppointment",
-                    "/AppointmentDetail",
-                    "/AppointentHistory",
+                    "/Appointment/CancelAppointment",
+                    "/Appointment/Appointment/Waiting",
+                    "/Appointment/SingleAppointment",
+                    "/Appointment/AppointmentDetail",
+                    "/Appointment/AppointentHistory",
                   ]) && "border-l border-l-[var(--orange)]"
                 } `}
               >
-                <Link href="/Appointments">
+                <Link href="/Appointment/Appointments">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
                       isActive([
                         "/Appointment/Appointments",
-                        "/CancelAppointment",
-                        "/Waiting",
-                        "/SingleAppointment",
-                        "/AppointmentDetail",
-                        "/AppointentHistory",
+                        "/Appointment/CancelAppointment",
+                        "/Appointment/Waiting",
+                        "/Appointment/SingleAppointment",
+                        "/Appointment/AppointmentDetail",
+                        "/Appointment/AppointentHistory",
                       ])
                         ? "bg-[var(--orange)] text-white mx-3"
                         : "text-[#202224] mx-3"
@@ -106,18 +106,7 @@ const Sidebar = () => {
                   >
                     <div className="mr-3 w-5 h-5 relative">
                       <Image
-                        src={
-                          isActive([
-                            "/Appointments",
-                            "/CancelAppointment",
-                            "/Waiting",
-                            "/SingleAppointment",
-                            "/AppointmentDetail",
-                            "/AppointentHistory",
-                          ])
-                            ? "/images/appointwhite.png"
-                            : "/images/appoint.png"
-                        }
+                        src="/images/appoint.png"
                         alt=" icon"
                         width={16}
                         height={16}
@@ -164,10 +153,10 @@ const Sidebar = () => {
                   isActive("/Account") && "border-l border-l-[var(--orange)]"
                 } `}
               >
-                <Link href="/Account">
+                <Link href="/Service/Account">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
-                      isActive("/Account")
+                      isActive("/Service/Account")
                         ? "bg-[var(--orange)] text-white mx-3"
                         : "text-[#202224] mx-3"
                     }`}
@@ -175,7 +164,7 @@ const Sidebar = () => {
                     <div className="mr-3 w-5 h-5 relative">
                       <Image
                         src={
-                          isActive("/Account")
+                          isActive("/Service/Account")
                             ? "/images/accountwhite.png"
                             : "/images/Account.png"
                         }

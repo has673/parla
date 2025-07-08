@@ -5,6 +5,7 @@ import Heading from "../../../../Components/Text/Heading";
 import AuthButton from "../../../../Components/Buttons/AuthButton";
 import Text from "../../../../Components/Text/Text";
 import LegendInput from "../../../../Components/Input/LegendInput";
+import Link from "next/link";
 
 const ForgotPassword = () => {
   const role = "customer";
@@ -35,16 +36,6 @@ const ForgotPassword = () => {
             </div>
             <AuthButton data={{ email, role }} btnText="Send Code" />
           </form>
-
-          <p className="text-base font-normal text-center mt-6">
-            Remeber password?
-            <a
-              href="#"
-              className="text-[var(--orange)] font-medium hover:underline"
-            >
-              Log in
-            </a>
-          </p>
         </div>
       </div>
     </div>

@@ -1,11 +1,17 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const AppointmentCard = ({ status }) => {
+  const router = useRouter();
   return (
     <>
       {/* Card section with rounded top only */}
-      <div className="bg-white rounded-t-[11px] border border-[#BBBBBB] border-b-0">
+      <div
+        className="bg-white rounded-t-[11px] border border-[#BBBBBB] border-b-0"
+        onClick={() => router.push("/Appointment/SingleAppointment")}
+      >
         <div className="flex md:flex-row flex-col">
           {/* Left side: map or picture */}
           <div className="relative md:w-111 md:h-58 h-40">

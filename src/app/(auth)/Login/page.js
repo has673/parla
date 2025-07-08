@@ -5,6 +5,7 @@ import Heading from "../../../../Components/Text/Heading";
 import AuthButton from "../../../../Components/Buttons/AuthButton";
 import Text from "../../../../Components/Text/Text";
 import LegendInput from "../../../../Components/Input/LegendInput";
+import Link from "next/link";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -42,12 +43,14 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              {/*<div className="text-right mt-1">
-                <a href="#" className="text-base text-[#484A47]">
-                  Forgot Password?
-                </a>
+              <div className="text-right mt-1">
+                <Link
+                  href="/ForgotPassword"
+                  className="text-base text-[#484A47]"
+                >
+                  Forgot Password
+                </Link>
               </div>
-              */}
             </div>
 
             {/* Button */}

@@ -19,8 +19,8 @@ const FavoriteCard = () => {
         {isFavorite ? <Heart fill="#D83E3E" stroke="#D83E3E" /> : <Heart />}
       </button>
 
-      <div className="flex md:flex-row gap-x-8 flex-col">
-        <div className="md:w-2/5 md:h-51 relative h-30 w-full">
+      <div className="flex md:flex-row  gap-x-8 flex-col">
+        <div className="md:w-2/5 md:h-51 relative h-45 w-full">
           <Image
             src="/images/user.png"
             fill
