@@ -9,6 +9,7 @@ import Badge from "../../../Components/Card/Badge";
 import Image from "next/image";
 import StampcardInfo from "../../../Components/StampInfo";
 import StampCardList from "../../../Components/StampCardList";
+import ShareExperienceForm from "../../../Components/ExperienceForm";
 
 // Define your tabs and their labels
 const TABS = [
@@ -17,7 +18,7 @@ const TABS = [
 ];
 
 const StampCard = () => {
-  const [activeTab, setActiveTab] = useState("stampcard"); // default
+  const [activeTab, setActiveTab] = useState("gift"); // default
 
   return (
     <div>
@@ -32,7 +33,7 @@ const StampCard = () => {
         <Sidebar />
 
         <div className="min-h-screen w-full p-4">
-          {activeTab === "stampcard" && <StampCardList />}
+          {activeTab === "gift" && <ShareExperienceForm />}
           {activeTab === "works" && <StampcardInfo />}
         </div>
       </div>

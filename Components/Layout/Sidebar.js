@@ -86,6 +86,7 @@ const Sidebar = () => {
                     "/Appointment/SingleAppointment",
                     "/Appointment/AppointmentDetail",
                     "/Appointment/AppointentHistory",
+                    "/BookAppointment/",
                   ]) && "border-l border-l-[var(--orange)]"
                 } `}
               >
@@ -174,6 +175,99 @@ const Sidebar = () => {
                       />
                     </div>
                     <span>Account</span>
+                  </div>
+                </Link>
+              </li>
+              <li
+                className={`mb-6   px-4  ${
+                  isActive("/Favorite") && "border-l border-l-[var(--orange)]"
+                } `}
+              >
+                <Link href="/Gift">
+                  <div
+                    className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
+                      isActive("/Gift")
+                        ? "bg-[var(--orange)] text-white mx-3"
+                        : "text-[#202224] mx-3"
+                    }`}
+                  >
+                    <div className="mr-3 w-5 h-5 relative">
+                      <Image
+                        // src="/images/medication.png"
+                        src={
+                          isActive("/Gift")
+                            ? "/images/paymentblue.svg"
+                            : "/giftwhite.png"
+                        }
+                        alt="Payment icon"
+                        width={20}
+                        height={20}
+                        className="object-contain"
+                      />
+                    </div>
+                    <span>Points</span>
+                  </div>
+                </Link>
+              </li>
+              <li
+                className={`mb-6   px-4  ${
+                  isActive("/StampCard") && "border-l border-l-[var(--orange)]"
+                } `}
+              >
+                <Link href="/StampCard">
+                  <div
+                    className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
+                      isActive("/StampCard")
+                        ? "bg-[var(--orange)] text-white mx-3"
+                        : "text-[#202224] mx-3"
+                    }`}
+                  >
+                    <div className="mr-3 w-5 h-5 relative">
+                      <Image
+                        // src="/images/medication.png"
+                        src={
+                          isActive("/StampCard")
+                            ? "/images/paymentblue.svg"
+                            : "/stampwhite.png"
+                        }
+                        alt="Payment icon"
+                        width={20}
+                        height={20}
+                        className="object-contain"
+                      />
+                    </div>
+                    <span>Stamp Cards</span>
+                  </div>
+                </Link>
+              </li>
+              <li
+                className={`mb-6   px-4  ${
+                  isActive("/Favorite") && "border-l border-l-[var(--orange)]"
+                } `}
+              >
+                <Link href="/Gift">
+                  <div
+                    className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
+                      isActive("/Gift")
+                        ? "bg-[var(--orange)] text-white mx-3"
+                        : "text-[#202224] mx-3"
+                    }`}
+                  >
+                    <div className="mr-3 w-5 h-5 relative">
+                      <Image
+                        // src="/images/medication.png"
+                        src={
+                          isActive("/Gift")
+                            ? "/images/paymentblue.svg"
+                            : "/images/Heart.png"
+                        }
+                        alt="Payment icon"
+                        width={20}
+                        height={20}
+                        className="object-contain"
+                      />
+                    </div>
+                    <span>Gift Cards</span>
                   </div>
                 </Link>
               </li>

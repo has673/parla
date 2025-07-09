@@ -3,10 +3,7 @@ import { getToken } from "next-auth/jwt"; // Import getToken from next-auth
 
 export async function middleware(request) {
   // Get the token (session) from the request
-  const token = await getToken({
-    req: request,
-    secret: process.env.NEXTAUTH_SECRET,
-  });
+  const token = await localStorage.getItem("token");
 
   // If no token (user not logged in), redirect to the login page
   if (!token) {

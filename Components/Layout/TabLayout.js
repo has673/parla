@@ -7,13 +7,14 @@ import ReactPaginate from "react-paginate";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import ProviderCard from "../Card/ProviderCard";
 import { Loader } from "../Loader";
+import { useUser } from "@/Context/userContext";
 
 export const TabLayout = ({ type }) => {
   //type is to check for example hair beatuy massage
   const [itemOffset, setItemOffset] = useState(0);
   const [providers, setProviders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1); // default page is 1
-
+  const { token } = useUser();
   const itemsPerPage = 3;
   const [loading, setLoading] = useState(false);
   const endOffset = itemOffset + itemsPerPage;
@@ -27,7 +28,6 @@ export const TabLayout = ({ type }) => {
     setItemOffset(newOffset);
   };
 
-  const token = localStorage.getItem("token");
   const [gender, setGender] = useState("male");
   const fetchDashboardData = async () => {
     setLoading(true);

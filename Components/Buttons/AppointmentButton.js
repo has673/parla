@@ -11,7 +11,7 @@ const AppointmentButton = ({ className }) => {
     <button
       style={{ boxShadow: "0px 4px 4px 0px #00000040" }}
       className={className || defaultClasses}
-      onClick={() => router.push("/Service/ChooseProfessional")}
+      onClick={() => router.push("/BookAppointment")}
     >
       Book New Appointment
     </button>
