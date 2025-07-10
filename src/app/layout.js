@@ -2,6 +2,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/Context/userContext";
+import { BookingProvider } from "@/Context/BookingContext";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -23,8 +24,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} ${inter.className}   bg-white`}>
         <UserProvider>
-          <Toaster position="top-right" />
-          {children}
+          <BookingProvider>
+            <Toaster position="top-right" />
+            {children}
+          </BookingProvider>
         </UserProvider>
       </body>
     </html>

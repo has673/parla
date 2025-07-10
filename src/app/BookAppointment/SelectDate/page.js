@@ -1,19 +1,100 @@
-import React from "react";
-import DateSelector from "../../../../Components/DateSelector";
-import ContinueButton from "../../../../Components/Buttons/ContinueButton";
-import TimeSelector from "../../../../Components/TimeSelector";
+"use client";
+import React, { useState } from "react";
+
+import { useUser } from "@/Context/userContext";
+import { useBooking } from "@/Context/BookingContext";
+import DateTimeSelector from "../../../../Components/DateTimeSelecter";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import dayjs from "dayjs";
 
 const SelectDate = () => {
+  const { userData } = useUser();
+  const { booking, setBooking } = useBooking();
+  const router = useRouter();
+  const [dateTime, setDateTime] = useState({ date: "", time: "" });
+  console.log(dateTime, "date");
+
+  const handleSubmit = () => {
+    if (!dateTime?.date || !dateTime?.time) {
+      toast.error("Please select a date and time!");
+      return;
+    }
+
+    const selectedDate = dayjs(dateTime.date);
+    const selectedTime = dayjs(dateTime.time, "HH:mm");
+
+    // Save booking date/time
+    setBooking((prev) => ({
+      ...prev,
+      date: dateTime.date,
+      time: dateTime.time,
+    }));
+
+    // Apply discount logic if applicable
+    if (booking.discount && booking.discountDetail) {
+      const {
+        discountStartDate,
+        discountEndDate,
+        onlyBetweenDays = [],
+        onlyBetweenEndTime,
+        onlyBetweenTime,
+      } = booking.discountDetail;
+
+      const start = dayjs(discountStartDate);
+      const end = dayjs(discountEndDate);
+
+      const isDateInRange =
+        selectedDate.isSame(start, "day") ||
+        selectedDate.isSame(end, "day") ||
+        (selectedDate.isAfter(start) && selectedDate.isBefore(end));
+
+      const selectedDay = selectedDate.format("dddd"); // e.g., "Monday"
+      const isDayAllowed = onlyBetweenDays.includes(selectedDay);
+
+      let isTimeAllowed = true;
+      if (onlyBetweenTime && onlyBetweenEndTime) {
+        const allowedEnd = dayjs(onlyBetweenEndTime, "HH:mm");
+        isTimeAllowed =
+          selectedTime.isSame(allowedEnd) || selectedTime.isBefore(allowedEnd);
+      }
+
+      if (!(isDateInRange && isDayAllowed && isTimeAllowed)) {
+        console.log("Discount NOT applied");
+        setBooking((prev) => ({
+          ...prev,
+          discount: false,
+          discountDetail: null,
+        }));
+      } else {
+        console.log("Discount applied");
+      }
+    }
+    router.push("/BookAppointment/Payment");
+  };
+
   return (
     <div className="px-14">
       <div className="flex justify-between text-[#1D1B1B] my-4">
-        <h2 className="textt-2xl font-semibold">Choose Date</h2>
-        <span className="textt-[17px] font-medium">Ayaz A</span>
+        <h2 className="text-2xl font-semibold">Choose Date</h2>
+        <span className="text-[17px] font-medium">
+          {userData?.firstName} {userData?.lastName}
+        </span>
       </div>
-      <DateSelector />
 
-      <TimeSelector />
-      <ContinueButton className="`bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold h-14 my-2 justify-center items-center" />
+      <DateTimeSelector
+        sendDateToParent={({ date, time }) => {
+          console.log("Selected:", date, time);
+          setDateTime({ date, time });
+        }}
+      />
+
+      <button
+        className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold h-14 my-2 justify-center items-center cursor-pointer"
+        onClick={handleSubmit}
+      >
+        Continue
+      </button>
     </div>
   );
 };

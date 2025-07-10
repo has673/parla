@@ -10,6 +10,8 @@
   --darkGrey: #4b4b4b;
   --color-black: #333333;
   --color-dark: #1e232c;
+  --Cornflower-Blue: #8696bb;
+  --Woodsmoke: #18191a;
 }
 
 @media (prefers-color-scheme: dark) {

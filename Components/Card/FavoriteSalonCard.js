@@ -4,7 +4,7 @@ import React from "react";
 
 const FavoriteSalonCard = () => {
   return (
-    <div className="border border-[#D2D2D2] rounded-xl w-full md:h-51 mb-4 text-[#8696BB]">
+    <div className="border border-[#D2D2D2] rounded-xl w-full md:h-51 mb-4 text-[var(--Cornflower-Blue)]">
       <div className="flex md:flex-row gap-x-8 flex-col ">
         {" "}
         <div className="md:w-2/5 md:h-51 relative h-30 w-full ">
@@ -17,7 +17,7 @@ const FavoriteSalonCard = () => {
         </div>
         <div className="my-5 w-full">
           {/* Name of Saloon*/}
-          <h3 className="text-[#18191A] text-xl font-medium text-center sm:text-left">
+          <h3 className="text-[var(--Woodsmoke)] text-xl font-medium text-center sm:text-left">
             Parla
           </h3>
           <span className="text-xs font-normal py-3 flex flex-row gap-x-2 ">

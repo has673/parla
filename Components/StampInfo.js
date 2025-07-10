@@ -7,7 +7,7 @@ const AccordionItem = ({ question, answer }) => {
   return (
     <div className="mb-4">
       <div
-        className="flex justify-between items-center cursor-pointer font-semibold text-[#1E232C]"
+        className="flex justify-between items-center cursor-pointer font-semibold text-[var(--color-dark)]"
         onClick={() => setOpen(!open)}
       >
         <h4>{question}</h4>
@@ -29,8 +29,8 @@ const AccordionItem = ({ question, answer }) => {
 
 export default function StampcardInfo() {
   return (
-    <div className="md:w-1/2 w-full px-4 py-6 text-base font-medium text-[#1E232C]">
-      <h3 className=" text-base font-medium text-[#1E232C] mb-4">
+    <div className="md:w-1/2 w-full px-4 py-6 text-base font-medium text-[var(--color-dark)]">
+      <h3 className=" text-base font-medium text-[var(--color-dark)] mb-4">
         How do i use stampcard?
       </h3>
 

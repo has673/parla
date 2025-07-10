@@ -4,7 +4,7 @@ const ActivityTable = ({ data }) => {
   return (
     <div className="w-full  ">
       {/* Header Row */}
-      <div className="grid grid-cols-3 font-medium text-xl text-[#1E232C] mb-2 px-4">
+      <div className="grid grid-cols-3 font-medium text-xl text-[var(--color-dark)] mb-2 px-4">
         <span>Points</span>
         <span>Your Activity</span>
         <span>Date</span>

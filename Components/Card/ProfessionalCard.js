@@ -7,7 +7,7 @@ export default function ProfessionalCard({ employee, selected, onSelect }) {
   return (
     <div
       className={`relative w-71 p-4 border border-[#898989] rounded-3xl text-center bg-white  ${
-        isSelected ? "border-[#ff6b00]" : "border-gray-300"
+        isSelected ? "border-[var(--orange)]" : "border-gray-300"
       }`}
       onClick={onSelect}
     >
@@ -28,7 +28,7 @@ export default function ProfessionalCard({ employee, selected, onSelect }) {
 
       {/* Name */}
       <h3 className="font-normal text-lg text-[var(--color-dark)]">
-        {employee?.firstName || "N/A"} {employee?.secondName || ""}
+        {employee?.firstName || "N/A"} {employee?.lastName || ""}
       </h3>
 
       {/* Availability */}

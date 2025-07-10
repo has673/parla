@@ -13,7 +13,7 @@ const ShareExperienceForm = () => {
   return (
     <div className=" p-6">
       {/* Heading */}
-      <h2 className="font-medium text-base text-[#1E232C] mb-2">
+      <h2 className="font-medium text-base text-[var(--color-dark)] mb-2">
         Share the experience with a friend
       </h2>
 

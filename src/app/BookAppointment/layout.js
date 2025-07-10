@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import HeaderTab from "../../../Components/Layout/HeaderTab";
 import Sidebar from "../../../Components/Layout/Sidebar";
 import { TabContext } from "@/Context/TabContext";
+import { BookingProvider } from "@/Context/BookingContext";
 
 const TABS = [
   { path: "hair", label: "Hair" },

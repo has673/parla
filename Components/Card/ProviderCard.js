@@ -15,7 +15,7 @@ const ProviderCard = ({ provider }) => {
           />
         </div>
         <div className="my-5 w-full">
-          <h3 className="text-[#18191A] text-xl font-semibold text-center sm:text-left">
+          <h3 className="text-[var(--Woodsmoke)] text-xl font-semibold text-center sm:text-left">
             {provider.firstName} {provider.lastName}
           </h3>
 

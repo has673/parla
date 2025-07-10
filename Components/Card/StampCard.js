@@ -17,7 +17,7 @@ const StampCard = ({ data }) => {
   } = data;
 
   return (
-    <div className="border border-[#D2D2D2] rounded-xl text-[#8696BB] w-full md:h-51 mb-4 relative">
+    <div className="border border-[#D2D2D2] rounded-xl text-[var(--Cornflower-Blue)] w-full md:h-51 mb-4 relative">
       {/* Heart Icon Top Right */}
       <button
         className="absolute top-2 right-2 text-red-500"
@@ -41,7 +41,7 @@ const StampCard = ({ data }) => {
         </div>
 
         <div className="my-2 w-full">
-          <h3 className="text-[#18191A] text-xl font-medium text-center sm:text-left">
+          <h3 className="text-[var(--Woodsmoke)] text-xl font-medium text-center sm:text-left">
             {name}
           </h3>
 

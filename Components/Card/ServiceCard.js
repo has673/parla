@@ -8,7 +8,7 @@ const ServiceCard = ({ service, selected, onSelect }) => {
   return (
     <div
       className={`flex items-center justify-between p-4 border rounded-md cursor-pointer transition-colors my-3
-        ${isSelected ? "border-[#ff6b00]" : "border-gray-300"}`}
+        ${isSelected ? "border-[var(--orange)]" : "border-gray-300"}`}
       onClick={onSelect}
     >
       {/* Left side */}
@@ -16,7 +16,7 @@ const ServiceCard = ({ service, selected, onSelect }) => {
         {/* Beep Indicator */}
         <span
           className={`w-5 h-5 rounded-full border-2 p-0.5 
-            ${isSelected ? "border-[#ff6b00]" : "border-gray-400"}`}
+            ${isSelected ? "border-[var(--orange)]" : "border-gray-400"}`}
         >
           <span
             className={`block w-full h-full rounded-full 

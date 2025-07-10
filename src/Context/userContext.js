@@ -11,14 +11,16 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    // const storedUser = localStorage.getItem("userData");
+    const storedUser = localStorage.getItem("userData");
 
     if (storedToken) setToken(storedToken);
-    // if (storedUser) setUserData(JSON.parse(storedUser));
+    if (storedUser) setUserData(JSON.parse(storedUser));
   }, []);
 
   return (
-    <UserContext.Provider value={{ token }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ token, userData }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

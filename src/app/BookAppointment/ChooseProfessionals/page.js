@@ -1,14 +1,15 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ArrowBigLeft, ArrowBigRight, Star } from "lucide-react";
-import ProfessionalCard from "../../../../../Components/Card/ProfessionalCard";
-import { Loader } from "../../../../../Components/Loader";
 import { useTab } from "@/Context/TabContext";
 import { useUser } from "@/Context/userContext";
 import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
+import { useBooking } from "@/Context/BookingContext";
+import ProfessionalCard from "../../../../Components/Card/ProfessionalCard";
+import { Loader } from "../../../../Components/Loader";
 
 const Professionals = () => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const Professionals = () => {
   const [employees, setEmployees] = useState([]);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 6;
-
+  const { setBooking } = useBooking();
   const [selectedId, setSelectedId] = useState(null);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = employees?.slice(itemOffset, endOffset);
@@ -66,11 +67,27 @@ const Professionals = () => {
   };
   const nextPage = () => {
     if (selectedId) {
+      const selectedEmployee = employees.find((emp) => emp._id === selectedId);
+
+      if (!selectedEmployee) {
+        toast.error("Selected employee not found!");
+        return;
+      }
+
+      setBooking((prev) => ({
+        ...prev,
+        employeeId: selectedEmployee._id,
+        employeeName: `${selectedEmployee.firstName} ${selectedEmployee.lastName}`,
+        employeeWorkingHours: selectedEmployee.workingHours || [],
+      }));
+
       router.push("/BookAppointment/SelectDate");
     } else {
       toast.error("Please Select a Professional!!!");
     }
   };
+
+  console.log(employees);
   return (
     <div className="px-6 md:px-10 max-w-full">
       <h2 className="text-[#1D1B1B] text-[22px] font-semibold mb-4">

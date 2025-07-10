@@ -26,10 +26,10 @@ const SingleAppointment = () => {
         <div className="flex flex-row justify-between">
           <div>
             {" "}
-            <p className="text-[#8696BB]">Appointments No</p>
-            <p className="text-[#8696BB]">Beauty Expert</p>
-            <p className="text-[#8696BB]">Date:</p>
-            <p className="text-[#8696BB]">Service</p>
+            <p className="text-[var(--Cornflower-Blue)]">Appointments No</p>
+            <p className="text-[var(--Cornflower-Blue)]">Beauty Expert</p>
+            <p className="text-[var(--Cornflower-Blue)]">Date:</p>
+            <p className="text-[var(--Cornflower-Blue)]">Service</p>
             <p className="text-[#252525] text-lg font-bold">Man Cave</p>
             <div className="relative w-100 h-25 my-3 ">
               {/* Ideally replace src with your own or fallback */}
@@ -49,7 +49,7 @@ const SingleAppointment = () => {
             <p> Face care</p>
             <p className="text-[var(--orange)] font-semibold">$17,343</p>
             <div className="my-3">
-              <p className="text-[#18191A] text-[20px] font-medium">
+              <p className="text-[var(--Woodsmoke)] text-[20px] font-medium">
                 Kadikoy,Istanbul
               </p>
               <p className="text-[#18191A80] text-base font-medium">

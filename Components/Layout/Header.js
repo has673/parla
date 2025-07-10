@@ -22,7 +22,7 @@ export default function Header({ links }) {
       </div>
 
       <div className="flex-1 flex flex-row justify-between items-end md:pepx-14 overflow-x-auto ">
-        <h3 className="text-[#1E232C] md:text-xl text-sm font-bold md:py-3">
+        <h3 className="text-[var(--color-dark)] md:text-xl text-sm font-bold md:py-3">
           Appointment details
         </h3>
         <div>

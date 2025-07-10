@@ -11,6 +11,7 @@ import ServiceCard from "../../../Components/Card/ServiceCard";
 import { Loader } from "../../../Components/Loader";
 import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
+import { useBooking } from "@/Context/BookingContext";
 
 const ChooseProfessional = () => {
   const router = useRouter();
@@ -23,7 +24,7 @@ const ChooseProfessional = () => {
   const [popular, setPopular] = useState(true);
   const [itemOffset, setItemOffset] = useState(0);
   const itemsPerPage = 3;
-
+  const { setBooking } = useBooking();
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = services?.slice(itemOffset, endOffset);
   const pageCount = Math.ceil(services?.length / itemsPerPage);
@@ -48,7 +49,6 @@ const ChooseProfessional = () => {
   }, []);
 
   const getServices = async () => {
-    console.log(type, "type");
     try {
       setLoading(true);
       const query = new URLSearchParams({
@@ -83,7 +83,43 @@ const ChooseProfessional = () => {
   }, [gender, type, token]);
   const nextPage = () => {
     if (selectedId) {
-      router.push(`/BookAppointment/ChooseProfessionals/${selectedId}`);
+      const selectedService = services.find(
+        (service) => service._id === selectedId
+      );
+      console.log(selectedService, "service");
+      let discountDetail = {};
+      if (selectedService?.discount === true) {
+        discountDetail.discountPrice = selectedService?.discountPrice;
+        discountDetail.discountPercentage = selectedService?.discountPercentage;
+        discountDetail.discountStartDate = selectedService?.discountStartDate;
+        discountDetail.discountEndDate = selectedService?.discountEndDate;
+        discountDetail.onlyBetweenTime = selectedService?.onlyBetweenTime;
+        discountDetail.onlyBetweenStartTime =
+          selectedService?.onlyBetweenStartTime;
+        discountDetail.onlyBetweenEndTime = selectedService?.onlyBetweenEndTime;
+        discountDetail.onlyBetweenDays = selectedService?.onlyBetweenDays;
+
+        setBooking((prev) => ({
+          ...prev,
+          serviceId: selectedId,
+          serviceName: selectedService.serviceName,
+          serviceMints: selectedService.serviceMints,
+          price: selectedService.price,
+          discount: true,
+          discountDetail: discountDetail,
+        }));
+      } else {
+        setBooking((prev) => ({
+          ...prev,
+          serviceId: selectedId,
+          serviceName: selectedService.serviceName,
+          serviceMints: selectedService.serviceMints,
+          price: selectedService.price,
+          discount: false,
+        }));
+      }
+
+      router.push(`/BookAppointment/ChooseProfessionals`);
     } else {
       toast.error("Please Select a Service!!!");
     }
@@ -113,7 +149,7 @@ const ChooseProfessional = () => {
             </div>
             <div className="md:w-2/5">
               {" "}
-              <p className="text-base font-normal text-[#1E232C]">
+              <p className="text-base font-normal text-[var(--color-dark)]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                 enim ad minim{" "}

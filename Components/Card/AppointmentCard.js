@@ -33,10 +33,12 @@ const AppointmentCard = ({ status }) => {
               )}
               <div className="flex md:flex-row md:justify-between text-lg md:text-[22px] font-normal gap-4  md:text-left">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-[#8696BB]">Appointments No</p>
-                  <p className="text-[#8696BB]">Beauty Expert</p>
-                  <p className="text-[#8696BB]">Date:</p>
-                  <p className="text-[#8696BB]">Service</p>
+                  <p className="text-[var(--Cornflower-Blue)]">
+                    Appointments No
+                  </p>
+                  <p className="text-[var(--Cornflower-Blue)]">Beauty Expert</p>
+                  <p className="text-[var(--Cornflower-Blue)]">Date:</p>
+                  <p className="text-[var(--Cornflower-Blue)]">Service</p>
                   <p className="text-[#252525] text-lg font-bold">Asume Dere</p>
                 </div>
                 <div className="flex flex-col space-y-1">
