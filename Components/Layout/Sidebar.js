@@ -170,8 +170,8 @@ const Sidebar = () => {
                             : "/images/Account.png"
                         }
                         alt="Good Day/Bad Day icon"
-                        width={20}
-                        height={20}
+                        width={18}
+                        height={18}
                       />
                     </div>
                     <span>Account</span>
@@ -180,13 +180,13 @@ const Sidebar = () => {
               </li>
               <li
                 className={`mb-6   px-4  ${
-                  isActive("/Favorite") && "border-l border-l-[var(--orange)]"
+                  isActive("/Gift") && "border-l border-l-[var(--orange)]"
                 } `}
               >
-                <Link href="/Gift">
+                <Link href="/Points">
                   <div
                     className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
-                      isActive("/Gift")
+                      isActive("/Points")
                         ? "bg-[var(--orange)] text-white mx-3"
                         : "text-[#202224] mx-3"
                     }`}
@@ -194,11 +194,7 @@ const Sidebar = () => {
                     <div className="mr-3 w-5 h-5 relative">
                       <Image
                         // src="/images/medication.png"
-                        src={
-                          isActive("/Gift")
-                            ? "/images/paymentblue.svg"
-                            : "/giftwhite.png"
-                        }
+                        src={isActive("/Gift") ? "/gift.png" : "/giftwhite.png"}
                         alt="Payment icon"
                         width={20}
                         height={20}
@@ -227,12 +223,12 @@ const Sidebar = () => {
                         // src="/images/medication.png"
                         src={
                           isActive("/StampCard")
-                            ? "/images/paymentblue.svg"
-                            : "/stampwhite.png"
+                            ? "/stampwhite.png"
+                            : "/stampblack.png"
                         }
                         alt="Payment icon"
-                        width={20}
-                        height={20}
+                        width={24}
+                        height={24}
                         className="object-contain"
                       />
                     </div>
@@ -242,7 +238,7 @@ const Sidebar = () => {
               </li>
               <li
                 className={`mb-6   px-4  ${
-                  isActive("/Favorite") && "border-l border-l-[var(--orange)]"
+                  isActive("/Gift") && "border-l border-l-[var(--orange)]"
                 } `}
               >
                 <Link href="/Gift">
@@ -257,13 +253,11 @@ const Sidebar = () => {
                       <Image
                         // src="/images/medication.png"
                         src={
-                          isActive("/Gift")
-                            ? "/images/paymentblue.svg"
-                            : "/images/Heart.png"
+                          isActive("/Gift") ? "/storewgite.png" : "/store.png"
                         }
                         alt="Payment icon"
-                        width={20}
-                        height={20}
+                        width={24}
+                        height={24}
                         className="object-contain"
                       />
                     </div>

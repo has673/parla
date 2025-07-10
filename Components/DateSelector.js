@@ -24,6 +24,8 @@ const DateSelector = () => {
               key={date.format("YYYY-MM-DD")}
               onClick={() => setSelectedDate(date.format("YYYY-MM-DD"))}
               className={`flex flex-col items-center  justify-center w-13 h-13 md:w-20 md:h-20  rounded-full cursor-pointer gap-x
+
+                
     ${
       isSelected
         ? "bg-[var(--orange)] text-white"

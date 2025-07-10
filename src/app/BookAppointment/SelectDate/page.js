@@ -11,6 +11,7 @@ const SelectDate = () => {
         <span className="textt-[17px] font-medium">Ayaz A</span>
       </div>
       <DateSelector />
+
       <TimeSelector />
       <ContinueButton className="`bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold h-14 my-2 justify-center items-center" />
     </div>
