@@ -1,8 +1,8 @@
 import React from "react";
-import AppointmentButton from "../../../../Components/Buttons/AppointmentButton";
-import AppointmentCard from "../../../../Components/Card/AppointmentCard";
+import AppointmentButton from "./Buttons/AppointmentButton";
+import AppointmentCard from "./Card/AppointmentCard";
 
-const Appointment = () => {
+const AppointmentTab = ({ type }) => {
   return (
     <div className="px-4">
       <div className="w-full flex md:justify-end my-8 justify-center ">
@@ -14,4 +14,4 @@ const Appointment = () => {
   );
 };
 
-export default Appointment;
+export default AppointmentTab;

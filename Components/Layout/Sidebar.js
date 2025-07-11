@@ -25,16 +25,15 @@ const Sidebar = () => {
     },
     {
       label: "Appointments",
-      href: "/Appointment/Appointments",
+      href: "/Appointment",
       icon: "/images/appoint.png",
       activeIcon: "/images/appointwhite.png",
       match: [
-        "/Appointment/Appointments",
+        "/Appointment",
         "/Appointment/CancelAppointment",
-        "/Appointment/Waiting",
+
         "/Appointment/SingleAppointment",
         "/Appointment/AppointmentDetail",
-        "/Appointment/AppointentHistory",
         "/BookAppointment/",
       ],
     },

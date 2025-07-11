@@ -1,6 +1,7 @@
 "use client";
 import { useBooking } from "@/Context/BookingContext";
 import React, { useState } from "react";
+import { PaymentTracker } from "../../../../Components/Tracker";
 const Payment = () => {
   const [noteEnabled, setNoteEnabled] = useState(true);
   const [note, setNote] = useState("");
@@ -25,8 +26,12 @@ const Payment = () => {
 
   return (
     <>
-      {" "}
-      <div className="flex flex-col md:flex-row justify-between gap-6 p-6">
+      <div className="flex justify-center my-4">
+        {" "}
+        <PaymentTracker />
+      </div>
+
+      <div className="flex flex-col md:flex-row justify-between gap-6 py-6 px-10">
         <div className="w-full md:w-1/2 space-y-4">
           <div className="flex justify-between items-start text-[var(--color-dark)]">
             <div>
