@@ -7,6 +7,7 @@ import DateTimeSelector from "../../../../Components/DateTimeSelecter";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { DateTracker } from "../../../../Components/Tracker";
 
 const SelectDate = () => {
   const { userData } = useUser();
@@ -75,6 +76,10 @@ const SelectDate = () => {
 
   return (
     <div className="px-14">
+      <div className="flex justify-center my-4">
+        {" "}
+        <DateTracker />
+      </div>
       <div className="flex justify-between text-[#1D1B1B] my-4">
         <h2 className="text-2xl font-semibold">Choose Date</h2>
         <span className="text-[17px] font-medium">

@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
 import ProfessionalCard from "../../../../Components/Card/ProfessionalCard";
 import { Loader } from "../../../../Components/Loader";
-import { Tracker } from "../../../../Components/Tracker";
+import { ProfessionalTracker } from "../../../../Components/Tracker";
 
 const Professionals = () => {
   const router = useRouter();
@@ -122,6 +122,10 @@ const Professionals = () => {
 
   return (
     <div className="px-6 md:px-10 max-w-full">
+      <div className="flex justify-center my-4">
+        {" "}
+        <ProfessionalTracker />
+      </div>
       <h2 className="text-[#1D1B1B] text-[22px] font-semibold mb-4">
         Choose Professional
       </h2>

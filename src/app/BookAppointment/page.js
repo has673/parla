@@ -12,6 +12,7 @@ import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
 import { useUser } from "@/Context/userContext";
+import { ServiceTracker } from "../../../Components/Tracker";
 
 const ChooseProfessional = () => {
   const router = useRouter();
@@ -235,14 +236,9 @@ const ChooseProfessional = () => {
         />
       </div>
 
-      <div className="flex md:flex-row flex-col gap-x-3 items-center w-full justify-between my-4">
-        <div className="relative w-3xl h-[78px]">
-          <Image
-            src="/images/progress.png"
-            fill
-            className=" object-cover"
-            alt="progress"
-          />
+      <div className="flex md:flex-row flex-col gap-x-3 items-center w-full justify-between my-4 px-12">
+        <div className=" w-2/3 h-[78px]">
+          <ServiceTracker />
         </div>
 
         <span
