@@ -1,15 +1,24 @@
 import { Star, Heart } from "lucide-react";
 import Image from "next/image";
 
-export default function ProfessionalCard({ employee, selected, onSelect }) {
+export default function ProfessionalCard({
+  employee,
+  selected,
+  onSelect,
+  checkAvailability,
+}) {
   const isAvailable = employee?.isAvailableToday;
   const isSelected = selected;
+
   return (
     <div
       className={`relative w-71 p-4 border border-[#898989] rounded-3xl text-center bg-white  ${
         isSelected ? "border-[var(--orange)]" : "border-gray-300"
       }`}
-      onClick={onSelect}
+      onClick={() => {
+        onSelect();
+        checkAvailability(isAvailable);
+      }}
     >
       {/* Heart Icon */}
       <button className="absolute top-3 right-3 text-[#5F5F5F] hover:text-red-500">

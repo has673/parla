@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
 import ProfessionalCard from "../../../../Components/Card/ProfessionalCard";
 import { Loader } from "../../../../Components/Loader";
+import { Tracker } from "../../../../Components/Tracker";
 
 const Professionals = () => {
   const router = useRouter();
@@ -17,19 +18,32 @@ const Professionals = () => {
   const type = useTab(); // category like "hair", "massage"
   const [loading, setLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const [itemOffset, setItemOffset] = useState(0);
+
   const itemsPerPage = 6;
   const { setBooking } = useBooking();
+  const [avalable, setAvailable] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = employees?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(employees?.length / itemsPerPage);
+
+  const { booking } = useBooking();
+  const branchId = booking?.branchId;
+
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 0,
+    hasMore: false,
+  });
+
+  const pageCount = pagination?.totalPages;
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % employees?.length;
-    setItemOffset(newOffset);
+    const selectedPage = event.selected + 1;
+
+    getEmployees(selectedPage);
   };
 
+  const checkAvialbily = (data) => {
+    setAvailable(data);
+  };
   // Fetch professionals
   useEffect(() => {
     if (token && type) {
@@ -37,12 +51,14 @@ const Professionals = () => {
     }
   }, [token, type]);
 
-  const getEmployees = async () => {
+  const getEmployees = async (page = 1) => {
     try {
       setLoading(true);
       const query = new URLSearchParams({
-        limit: 10,
+        limit: itemsPerPage,
         category: type,
+        branchId,
+        page,
       }).toString();
 
       const response = await fetch(
@@ -68,9 +84,24 @@ const Professionals = () => {
   const nextPage = () => {
     if (selectedId) {
       const selectedEmployee = employees.find((emp) => emp._id === selectedId);
+      const employeeType = selectedEmployee?.serviceType;
+      const service = booking?.serviceCategory;
+      console.log(service);
 
       if (!selectedEmployee) {
         toast.error("Selected employee not found!");
+        return;
+      }
+      if (!avalable) {
+        toast.error("Employee Not Available Today");
+        return;
+      }
+
+      if (employeeType !== service) {
+        toast.error(
+          `Mismatch: "${service}" service and "${employeeType}" professional. Please select accordingly.`
+        );
+
         return;
       }
 
@@ -88,6 +119,7 @@ const Professionals = () => {
   };
 
   console.log(employees);
+
   return (
     <div className="px-6 md:px-10 max-w-full">
       <h2 className="text-[#1D1B1B] text-[22px] font-semibold mb-4">
@@ -98,12 +130,13 @@ const Professionals = () => {
         <Loader />
       ) : employees?.length > 0 ? (
         <div className="grid md:grid-cols-3 grid-cols-2 gap-4 justify-center">
-          {currentItems.map((employee) => (
+          {employees.map((employee) => (
             <ProfessionalCard
               key={employee._id}
               employee={employee}
               selected={selectedId === employee._id}
               onSelect={() => setSelectedId(employee._id)}
+              checkAvailability={checkAvialbily}
             />
           ))}
         </div>

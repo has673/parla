@@ -5,55 +5,49 @@ import React, { useState, useEffect } from "react";
 
 import { useRouter } from "next/navigation";
 
-import axios from "axios";
 import { useTab } from "@/Context/TabContext";
 import ServiceCard from "../../../Components/Card/ServiceCard";
 import { Loader } from "../../../Components/Loader";
 import ReactPaginate from "react-paginate";
 import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
+import { useUser } from "@/Context/userContext";
 
 const ChooseProfessional = () => {
   const router = useRouter();
-  const [user, setUser] = useState(null);
   const [selectedId, setSelectedId] = useState(null);
   const [services, setServices] = useState([]);
   const [gender, setGender] = useState("");
   const [loading, setLoading] = useState(false);
-  const [token, setToken] = useState(null);
+
   const [popular, setPopular] = useState(true);
-  const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 3;
+  const itemsPerPage = 10;
+
   const { setBooking } = useBooking();
-  const endOffset = itemOffset + itemsPerPage;
-  const currentItems = services?.slice(itemOffset, endOffset);
-  const pageCount = Math.ceil(services?.length / itemsPerPage);
+  const [pagination, setPagination] = useState({
+    currentPage: 1,
+    totalPages: 0,
+    hasMore: false,
+  });
+
+  const pageCount = pagination?.totalPages;
 
   const handlePageClick = (event) => {
-    const newOffset = (event.selected * itemsPerPage) % services?.length;
-    setItemOffset(newOffset);
+    const selectedPage = event.selected + 1;
+
+    getServices(selectedPage);
   };
 
   const type = useTab();
+  const { token, userData } = useUser();
 
-  useEffect(() => {
-    const stored = localStorage.getItem("userData");
-    const token = localStorage.getItem("token");
-
-    if (stored) {
-      setUser(JSON.parse(stored));
-    }
-    if (token) {
-      setToken(token);
-    }
-  }, []);
-
-  const getServices = async () => {
+  const getServices = async (page = 1) => {
     try {
       setLoading(true);
       const query = new URLSearchParams({
-        limit: 10,
+        limit: itemsPerPage,
         category: type,
+        page,
         gender,
       }).toString();
 
@@ -66,18 +60,19 @@ const ChooseProfessional = () => {
             "Content-Type": "application/json",
             "ngrok-skip-browser-warning": "true",
           },
-          // credentials: "include", // ← Comment out temporarily
         }
       );
-      const data = await response.json();
 
+      const data = await response.json();
       setServices(data.data);
+      setPagination(data.pagination); // Save pagination info
     } catch (err) {
       console.error("Failed to fetch services:", err);
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     getServices();
   }, [gender, type, token]);
@@ -105,6 +100,8 @@ const ChooseProfessional = () => {
           serviceName: selectedService.serviceName,
           serviceMints: selectedService.serviceMints,
           price: selectedService.price,
+          branchId: selectedService.branchId,
+          serviceCategory: selectedService.category,
           discount: true,
           discountDetail: discountDetail,
         }));
@@ -115,6 +112,8 @@ const ChooseProfessional = () => {
           serviceName: selectedService.serviceName,
           serviceMints: selectedService.serviceMints,
           price: selectedService.price,
+          branchId: selectedService.branchId,
+          serviceCategory: selectedService.category,
           discount: false,
         }));
       }
@@ -130,7 +129,7 @@ const ChooseProfessional = () => {
         <div className="flex flex-row gap-x-3 my-4">
           <div className="relative md:h-30 md:w-30  h-15 w-15">
             <Image
-              src={user?.image || "/images/courtney.png"}
+              src={userData?.image || "/images/courtney.png"}
               fill
               alt="user"
               className=" object-cover rounded-full border border-[var(--orange)]"
@@ -138,7 +137,7 @@ const ChooseProfessional = () => {
           </div>
           <div className="flex flex-col mt-2">
             <h3 className="text-[22px] font-medium ">
-              {user?.firstName} {user?.lastName}
+              {userData?.firstName} {userData?.lastName}
             </h3>
             <div className="flex items-center gap-1 text-[#FFC700] text-sm">
               {Array.from({ length: 5 }).map((_, i) => (
@@ -205,15 +204,13 @@ const ChooseProfessional = () => {
       ) : (
         <>
           {services?.length > 0 ? (
-            currentItems.map((service) => (
-              <>
-                <ServiceCard
-                  key={service._id}
-                  service={service}
-                  selected={selectedId === service._id}
-                  onSelect={() => setSelectedId(service._id)}
-                />
-              </>
+            services.map((service) => (
+              <ServiceCard
+                key={service._id}
+                service={service}
+                selected={selectedId === service._id}
+                onSelect={() => setSelectedId(service._id)}
+              />
             ))
           ) : (
             <p className="text-center text-gray-500">No services found</p>
