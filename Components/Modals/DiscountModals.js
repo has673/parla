@@ -33,6 +33,9 @@ const discounts = [
 export default function DiscountModal({ offers, isOpen, onClose, getId }) {
   const [selectedId, setSelectedId] = useState(null);
   if (!isOpen) return null;
+  const dateFormatter = (date) => {
+    return new Date(date);
+  };
 
   return (
     <div className="fixed inset-0 bg-black/20 flex items-center justify-center z-50">
@@ -40,7 +43,7 @@ export default function DiscountModal({ offers, isOpen, onClose, getId }) {
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-gray-700 hover:text-black"
+          className="absolute top-4 right-4 text-gray-700 hover:text-black cursor-pointer"
         >
           <X size={20} />
         </button>
@@ -53,7 +56,7 @@ export default function DiscountModal({ offers, isOpen, onClose, getId }) {
         {/* Discount List */}
         <div className="space-y-4">
           {offers.map((item) => (
-            <div key={item.id} className="flex items-center space-x-3">
+            <div key={item.id} className="flex items-center space-x-3 ">
               {/* Checkbox OUTSIDE card */}
               <input
                 type="checkbox"
@@ -62,42 +65,42 @@ export default function DiscountModal({ offers, isOpen, onClose, getId }) {
                   setSelectedId(item._id);
                   getId(item);
                 }}
-                className="accent-[var(--orange)]  w-5 h-5 mt-3 cursor-pointer"
+                className="accent-[var(--orange)]  w-7 h-7 mt-3 cursor-pointer"
               />
 
               {/* Discount Card */}
               <div
                 onClick={() => setSelectedId(item._id)}
-                className={`flex items-center justify-between flex-1 border rounded-lg px-4 py-3 cursor-pointer hover:shadow-md ${
+                className={`flex items-center justify-between flex-1 border rounded-md  py-5 cursor-pointer hover:shadow-md h-13  ${
                   selectedId === item._id
                     ? "border-[var(--orange)] bg-[var(--orange)/5]"
-                    : "border-gray-300"
+                    : "border-[#9D9D9D]"
                 }`}
               >
                 {/* Left: Image + Info */}
                 <div className="flex items-center space-x-3">
-                  <div className="h-10 w-10 relative">
+                  <div className="h-12 w-1/3 relative ">
                     {" "}
                     <Image
-                      src="/images/courtney.png"
+                      src="/jane.png"
                       alt="offer"
                       fill
-                      className=" object-cover"
+                      className="object-cover rounded-none "
                     />
                   </div>
 
-                  <div>
+                  <div className="mys-1">
                     <p className="text-sm font-medium text-black">
                       {item.name}
                     </p>
                     <p className="text-xs text-gray-500">
-                      Expiration date: {item.endDate}
+                      Expiration date: {`${dateFormatter(item.endDate)}`}
                     </p>
                   </div>
                 </div>
 
                 {/* Right: More icon */}
-                <MoreVertical className="text-black" size={18} />
+                <MoreVertical className="text-[#2E2E2E]" size={24} />
               </div>
             </div>
           ))}

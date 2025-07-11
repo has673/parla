@@ -262,7 +262,7 @@ const Payment = () => {
         {activeTab === "saved" && (
           <>
             {/* Saved Card */}
-            <div className="flex items-center justify-between border border-gray-300 rounded-lg p-4">
+            <div className="flex items-center justify-between border border-[#8F8F8F] rounded-[13px] p-4">
               <div className="flex items-center space-x-4">
                 <Image
                   src="/visa.svg" // replace with actual path
@@ -283,9 +283,10 @@ const Payment = () => {
             </div>
 
             {/* Discount Code Field */}
-            <div className="flex items-center justify-between border border-gray-300 rounded-lg p-4 mt-4">
+            <div className="flex items-center justify-between border border-[#8F8F8F]  rounded-[13px] p-4 mt-4">
               <input
                 type="text"
+                value={discountData ? discountData.name : "Summer offer 100"}
                 placeholder="Enter Discount Code"
                 defaultValue="Summer offer 100"
                 className="w-full text-sm text-black focus:outline-none placeholder:text-gray-400"
