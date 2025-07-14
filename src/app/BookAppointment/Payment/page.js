@@ -18,6 +18,7 @@ const Payment = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [discountData, setDiscountData] = useState(null);
+
   const { token } = useUser();
   const [offers, setOffers] = useState([]);
   const branchId = booking?.branchId;

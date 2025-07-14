@@ -10,6 +10,10 @@ import {
   CardExpiryElement,
   CardCvcElement,
 } from "@stripe/react-stripe-js";
+import { PaymentModal } from "./Modals/PaymentModal";
+import toast from "react-hot-toast";
+import { useBooking } from "@/Context/BookingContext";
+import { Loader } from "./Loader";
 
 const PaymentTabs = ({
   total,
@@ -21,12 +25,50 @@ const PaymentTabs = ({
   const [activeTab, setActiveTab] = useState("new");
   const [cardName, setCardName] = useState("");
   const [cardLabel, setCardLabel] = useState("");
-
+  const { booking, clearBooking } = useBooking();
   const stripe = useStripe();
   const elements = useElements();
 
-  const handleSubmit = async (e) => {
+  const [showModal, setShowModal] = useState(false);
+  const [submitEvent, setSubmitEvent] = useState(null); // Store form event
+  const [loading, setLoading] = useState(false);
+  const completeBooking = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/Appointment/getOffers?${query}`,
+        {
+          method: "POST",
+          booking,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "true",
+          },
+        }
+      );
+      if (response.status === 200) {
+        clearBooking();
+      }
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  };
+
+  const handleSubmit = (e) => {
     e.preventDefault();
+    setSubmitEvent(e); // Store event for later
+    setShowModal(true); // Show confirmation modal
+  };
+
+  const handlePaymentDecision = async (didAccept) => {
+    if (!didAccept || !submitEvent) return;
+
+    const e = submitEvent;
+    e.preventDefault();
+
     if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardNumberElement);
@@ -40,32 +82,37 @@ const PaymentTabs = ({
     });
 
     if (error) {
-      console.error("Stripe error: ", error.message);
+      console.error("Stripe error:", error.message);
       return;
     }
 
     const API_BASE_URL =
       process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    // Call your backend to create a PaymentIntent
+
     const res = await fetch(`${API_BASE_URL}/api/stripeCheckoutSession`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ amount: total() * 100 }), // in cents
+      body: JSON.stringify({ amount: total() * 100 }),
     });
 
     const data = await res.json();
 
-    const { client_secret, status } = data;
-    // Confirm card payment
-    const confirmResult = await stripe.confirmCardPayment(client_secret, {
+    const confirmResult = await stripe.confirmCardPayment(data.client_secret, {
       payment_method: paymentMethod.id,
     });
 
+    console.log(confirmResult);
+
     if (confirmResult.error) {
+      toast.error("Payment Failed. Please Try Again");
       console.error("Payment failed:", confirmResult.error.message);
     } else {
-      console.log("✅ Payment successful!", confirmResult.paymentIntent);
+      toast.success("Payment Made");
+      completeBooking();
+      console.log("Payment successful!", confirmResult.paymentIntent);
     }
+
+    setSubmitEvent(null); // Reset
   };
 
   return (
@@ -245,6 +292,12 @@ const PaymentTabs = ({
           </button>
         </>
       )}
+      <PaymentModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        onConfirm={handlePaymentDecision}
+      />
+      {loading && <Loader />}
     </div>
   );
 };
