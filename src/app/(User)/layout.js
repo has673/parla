@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { HomeTabContext } from "@/Context/HomeTabContext";
 import Sidebar from "../../../Components/Layout/Sidebar";
-import HeaderTab from "../../../Components/Layout/HeaderTab";
+import Header from "../../../Components/Layout/Header";
 
 const TABS = [
   { path: "/Info", label: "Info" },
@@ -18,7 +18,7 @@ const Layout = ({ children }) => {
 
   return (
     <div>
-      <HeaderTab
+      <Header
         links={TABS}
         activeTab={activeTab}
         setActiveTab={setActiveTab}

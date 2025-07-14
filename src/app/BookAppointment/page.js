@@ -154,13 +154,19 @@ const ChooseProfessional = () => {
               </div>
               <div className="flex gap-x-2 justify-center md:my-0 my-2">
                 <div className="w-8 h-8 rounded-full bg-[#E8E8E8] flex justify-center items-center ">
-                  <span className="border w-4 h-4 rounded-full flex justify-center items-center text-xs p-1">
+                  <span
+                    className="border w-4 h-4 rounded-full flex justify-center items-center text-xs p-1 cursor-pointer"
+                    onClick={() => router.push("/Info")}
+                  >
                     {" "}
                     !
                   </span>
                 </div>
                 <div className="w-8 h-8 rounded-full bg-[#E8E8E8] flex justify-center items-center ">
-                  <span className="border w-4 h-4 rounded-full flex justify-center items-center text-xs p-1">
+                  <span
+                    className="border w-4 h-4 rounded-full flex justify-center items-center text-xs p-1"
+                    onClick={() => router.push("/Question")}
+                  >
                     {" "}
                     ?
                   </span>
