@@ -77,7 +77,6 @@ const DateTimeSelector = ({ sendDateToParent }) => {
         })}
       </div>
 
-      {/* Selected Date */}
       <div className="text-[#1D1B1B] font-semibold text-[22px] flex justify-between">
         {selectedDate}
         {selectedTime && <p className="text-center">{selectedTime}</p>}

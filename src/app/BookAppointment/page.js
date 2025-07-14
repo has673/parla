@@ -127,16 +127,19 @@ const ChooseProfessional = () => {
   return (
     <div className="px-4">
       <div>
-        <div className="flex flex-row gap-x-3 my-4">
-          <div className="relative md:h-30 md:w-30  h-15 w-15">
-            <Image
-              src={userData?.image || "/images/courtney.png"}
-              fill
-              alt="user"
-              className=" object-cover rounded-full border border-[var(--orange)]"
-            />
+        <div className="flex md:flex-row flex-col gap-x-3 my-4">
+          <div className="flex md:block justify-center">
+            <div className="relative h-30 w-30">
+              <Image
+                src={userData?.image || "/images/courtney.png"}
+                fill
+                alt="user"
+                className="object-cover rounded-full border border-[var(--orange)]"
+              />
+            </div>
           </div>
-          <div className="flex flex-col mt-2">
+
+          <div className="flex flex-col mt-2 md:block items-center">
             <h3 className="text-[22px] font-medium ">
               {userData?.firstName} {userData?.lastName}
             </h3>
@@ -159,7 +162,7 @@ const ChooseProfessional = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-center md:justify-around gap-6 py-4">
+      <div className="flex justify-center items-center md:justify-around gap-6 py-4">
         {/* Male */}
         <div
           className={`${
@@ -180,7 +183,7 @@ const ChooseProfessional = () => {
             setGender("male");
             setPopular(false);
           }}
-          className={`cursor-pointer   md:text-[22px] text-sm font-medium px-4 rounded-lg transition-all duration-200
+          className={`cursor-pointer   md:text-[22px] text-base font-medium px-4 rounded-lg transition-all duration-200
                 ${gender === "male" ? " text-[#FF6B00]" : " text-[#000000C9]"}
               `}
         >
@@ -193,7 +196,7 @@ const ChooseProfessional = () => {
             setGender("female");
             setPopular(false);
           }}
-          className={`cursor-pointer  md:text-[22px] text-sm font-medium px-4  rounded-lg transition-all duration-200 flex gap-x-3
+          className={`cursor-pointer  md:text-[22px] text-base font-medium px-4  rounded-lg transition-all duration-200 flex gap-x-3
                 ${gender === "female" ? " text-[#FF6B00]" : " text-[#000000C9]"}
               `}
         >
@@ -236,13 +239,13 @@ const ChooseProfessional = () => {
         />
       </div>
 
-      <div className="flex md:flex-row flex-col gap-x-3 items-center w-full justify-between my-4 px-12">
+      <div className="flex md:flex-row flex-col  gap-x-3 md:items-center gap-y-6  w-full justify-between my-4 md:px-12">
         <div className=" w-2/3 h-[78px]">
           <ServiceTracker />
         </div>
 
         <span
-          className="text-xl font-semibold text-[var(--orange)] cursor-pointer"
+          className="text-xl font-semibold text-[var(--orange)] cursor-pointer md:text-right text-center"
           onClick={nextPage}
         >
           Continue

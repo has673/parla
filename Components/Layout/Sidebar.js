@@ -52,8 +52,10 @@ const Sidebar = () => {
     {
       label: "Points",
       href: "/Points",
-      icon: "/giftwhite.png",
-      activeIcon: "/gift.png",
+      icon: "/gift.png",
+      activeIcon: "/giftwhite.png",
+      width: 28,
+      height: 28,
     },
     {
       label: "Stamp Cards",
@@ -86,18 +88,18 @@ const Sidebar = () => {
                 >
                   <Link href={item.href}>
                     <div
-                      className={`flex items-center px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
+                      className={`flex items-start px-4 py-2 mb-1 rounded-md cursor-pointer transition-colors font-medium ${
                         active
                           ? "bg-[var(--orange)] text-white mx-3"
                           : "text-[#202224] mx-3"
                       }`}
                     >
-                      <div className="mr-3 w-5 h-5 relative">
+                      <div className="mr-3 w-5 h-5 relative ">
                         <Image
                           src={active ? item.activeIcon : item.icon}
                           alt={`${item.label} icon`}
-                          width={20}
-                          height={20}
+                          width={item.width || 20}
+                          height={item.height || 20}
                           className="object-contain"
                         />
                       </div>

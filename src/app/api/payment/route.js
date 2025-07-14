@@ -2,18 +2,22 @@ import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-export async function POST(req) {
-  try {
-    const { amount } = await req.json();
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
+  const { amount } = req.body;
+
+  try {
     const paymentIntent = await stripe.paymentIntents.create({
-      amount, // in cents
+      amount, // amount in cents
       currency: "usd",
-      automatic_payment_methods: { enabled: true },
     });
 
-    return Response.json({ clientSecret: paymentIntent.client_secret });
+    res.status(200).json({ clientSecret: paymentIntent.client_secret });
   } catch (err) {
-    return Response.json({ error: err.message }, { status: 500 });
+    console.error("Error creating PaymentIntent:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 }

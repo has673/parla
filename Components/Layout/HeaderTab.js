@@ -16,7 +16,7 @@ export default function HeaderTab({ links, activeTab, setActiveTab, title }) {
       </div>
 
       {/* Tabs Section */}
-      <div className="flex-1 flex flex-row justify-between items-end  md:px-6 overflow-x-auto">
+      <div className="flex-1 flex flex-row justify-between items-end  md:px-6 overflow-x-auto md:mx-28">
         <h3 className="text-[var(--color-dark)] md:text-xl text-sm font-bold md:py-3">
           {title}
         </h3>

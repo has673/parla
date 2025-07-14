@@ -3,11 +3,12 @@ import { useBooking } from "@/Context/BookingContext";
 import React, { useState, useEffect } from "react";
 import { PaymentTracker } from "../../../../Components/Tracker";
 
-import Image from "next/image";
 import DiscountModal from "../../../../Components/Modals/DiscountModals";
 import { useUser } from "@/Context/userContext";
-import { ArrowDown } from "lucide-react";
-
+import PaymentTabs from "../../../../Components/PaymentTab";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 const Payment = () => {
   const [noteEnabled, setNoteEnabled] = useState(true);
   const [note, setNote] = useState("");
@@ -105,15 +106,14 @@ const Payment = () => {
     setDiscountData(data);
   };
 
-  console.log(discountData);
   return (
-    <>
+    <div className="md:px-10 px-8">
       <div className="flex justify-center my-4">
         {" "}
         <PaymentTracker />
       </div>
 
-      <div className="flex flex-col md:flex-row justify-between gap-6 py-6 px-10">
+      <div className="flex flex-col md:flex-row justify-between gap-6 py-6 ">
         <div className="w-full md:w-1/2 space-y-4">
           <div className="flex justify-between items-start text-[var(--color-dark)]">
             <div>
@@ -180,147 +180,24 @@ const Payment = () => {
           )}
         </div>
       </div>
-      {/* Card Tabs */}
-      <div className="w-full px-10">
-        <div className="flex justify-between px-2 space-x-6 mb-4">
-          <button
-            className={`px-4 py-2  text-[22px] font-medium ${
-              activeTab === "saved"
-                ? "border-b-3 border-b-[var(--orange)]"
-                : "text-black"
-            }`}
-            onClick={() => setActiveTab("saved")}
-          >
-            Saved Card
-          </button>
-          <button
-            className={`px-4 py-1  text-[22px] font-medium ${
-              activeTab === "new"
-                ? "border-b-3 border-b-[var(--orange)]"
-                : "text-black"
-            }`}
-            onClick={() => setActiveTab("new")}
-          >
-            New Card
-          </button>
-        </div>
 
-        {/* New Card Form */}
-        {activeTab === "new" && (
-          <div className="p-6 bg-white w-full ">
-            <div className="my-2">
-              <input
-                className="border border-[#7B7B7B] rounded-xl h-11 text-black w-full p-2"
-                placeholder="MM/YY"
-              />
-              <div className="my-2 flex justify-between w-full">
-                <input
-                  className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                  placeholder="CVC/CVV"
-                />
-                <input
-                  className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                  placeholder="Card Holder Name"
-                />
-              </div>
-              <div className="my-2 flex justify-between w-full">
-                <input
-                  className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                  placeholder="Name of Card"
-                />
-                <input
-                  className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                  placeholder="Card Number"
-                />
-              </div>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <input
-                type="checkbox"
-                id="saveCard"
-                checked={noteEnabled}
-                onChange={() => setNoteEnabled(!noteEnabled)}
-                className="accent-[var(--orange)] w-6 h-6"
-                style={{
-                  boxShadow:
-                    "0px 1px 3px 0px #1A1A1A14, 0px 0.5px 0px 0px #1A1A1A14",
-                }}
-              />
-              <label
-                htmlFor="saveCard"
-                className="text-[13px] text-[var(--color-dark)] font-medium"
-              >
-                Save this Card
-              </label>
-            </div>
-            <button className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold my-6 py-3 cursor-pointer">
-              {`Pay ($${total()})`}
-            </button>
-          </div>
-        )}
+      <Elements stripe={stripePromise}>
+        <PaymentTabs
+          total={total}
+          discountData={discountData}
+          openModal={openModal}
+          noteEnabled={noteEnabled}
+          setNoteEnabled={setNoteEnabled}
+        />
+      </Elements>
 
-        {activeTab === "saved" && (
-          <>
-            {/* Saved Card */}
-            <div className="flex items-center justify-between border border-[#8F8F8F] rounded-[13px] p-4">
-              <div className="flex items-center space-x-4">
-                <Image
-                  src="/visa.svg" // replace with actual path
-                  alt="Visa"
-                  width={40}
-                  height={30}
-                />
-                <div>
-                  <p className="text-sm font-semibold text-black">
-                    H.Daniz ( Garanti Virtual )
-                  </p>
-                  <p className="text-sm text-gray-500 tracking-wide">
-                    4565 7782 **098
-                  </p>
-                </div>
-              </div>
-              <ArrowDown className="text-orange-500" />
-            </div>
-
-            {/* Discount Code Field */}
-            <div className="flex items-center justify-between border border-[#8F8F8F]  rounded-[13px] p-4 mt-4">
-              <input
-                type="text"
-                value={discountData ? discountData.name : "Summer offer 100"}
-                placeholder="Enter Discount Code"
-                defaultValue="Summer offer 100"
-                className="w-full text-sm text-black focus:outline-none placeholder:text-gray-400"
-              />
-              <ArrowDown
-                className="text-orange-500 ml-2 cursor-pointer"
-                onClick={openModal}
-              />
-            </div>
-
-            {/* Checkbox with highlighted label */}
-            <div className="flex items-start space-x-3 mt-4">
-              <p className="text-sm text-gray-700 leading-snug">
-                Lorem ipsum{" "}
-                <span className="text-orange-500 font-medium">
-                  dolor sit amet, consectetur
-                </span>{" "}
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore
-              </p>
-            </div>
-            <button className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold my-6 py-3 cursor-pointer">
-              {`Pay ($${total()})`}
-            </button>
-          </>
-        )}
-      </div>
       <DiscountModal
         onClose={closeModal}
         isOpen={open}
         offers={filteredOffers}
         getId={getDiscountId}
       />
-    </>
+    </div>
   );
 };
 
