@@ -19,11 +19,7 @@ const PaymentTabs = ({
   setNoteEnabled,
 }) => {
   const [activeTab, setActiveTab] = useState("new");
-  const [cardNumber, setCardNumber] = useState("");
   const [cardName, setCardName] = useState("");
-  const [cardHolderName, setCardHolderName] = useState("");
-  const [cardDate, setCardDate] = useState("");
-  const [cardCVV, setCardCVV] = useState("");
   const [cardLabel, setCardLabel] = useState("");
 
   const stripe = useStripe();
@@ -101,26 +97,43 @@ const PaymentTabs = ({
       {activeTab === "new" && (
         <form className="py-4  bg-white w-full" onSubmit={handleSubmit}>
           <div className="my-2">
-            <div className="my-2 flex justify-between w-full">
-              <input
-                className="border border-[#999999] rounded-xl h-11 text-black w-full p-2"
-                placeholder="Card Number"
-                value={cardNumber}
-                onChange={(e) => setCardNumber(e.target.value)}
+            {/* Expiry */}
+            <div className="border border-[#7B7B7B] rounded-xl h-11 text-black w-full p-2">
+              <CardExpiryElement
+                options={{
+                  placeholder: "MM/YY",
+                  style: {
+                    base: {
+                      fontSize: "16px",
+                      color: "#000",
+                      "::placeholder": { color: "#999" },
+                    },
+                  },
+                }}
               />
             </div>
+
+            {/* CVC + Card Holder Name */}
             <div className="my-2 flex justify-between w-full">
+              <div className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2">
+                <CardCvcElement
+                  options={{
+                    placeholder: "CVC",
+                    style: {
+                      base: {
+                        fontSize: "16px",
+                        color: "#000",
+                        "::placeholder": { color: "#999" },
+                      },
+                    },
+                  }}
+                />
+              </div>
               <input
                 className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
                 placeholder="Card Holder Name"
-                value={cardHolderName}
-                onChange={(e) => setCardHolderName(e.target.value)}
-              />
-              <input
-                className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                placeholder="Expiry Date"
-                value={cardDate}
-                onChange={(e) => setCardDate(e.target.value)}
+                value={cardName}
+                onChange={(e) => setCardName(e.target.value)}
               />
             </div>
 
@@ -129,16 +142,26 @@ const PaymentTabs = ({
               <input
                 className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
                 placeholder="Name of Card"
-                value={cardName}
-                onChange={(e) => setCardName(e.target.value)}
+                value={cardLabel}
+                onChange={(e) => setCardLabel(e.target.value)}
               />
-
-              <input
-                className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                placeholder="CVV / CVC "
-                value={cardCVV}
-                onChange={(e) => setCardCVV(e.target.value)}
-              />
+              <div className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2">
+                <CardNumberElement
+                  options={{
+                    placeholder: "Card Number",
+                    style: {
+                      base: {
+                        fontSize: "16px",
+                        color: "#000",
+                        "::placeholder": { color: "#999" },
+                      },
+                      invalid: {
+                        color: "#ff0000",
+                      },
+                    },
+                  }}
+                />
+              </div>
             </div>
           </div>
 
