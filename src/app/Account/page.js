@@ -11,7 +11,7 @@ const TABS = [
   { path: "beauty", label: "Beauty" },
 ];
 
-const HomeScreen = () => {
+const AccountScreen = () => {
   const [activeTab, setActiveTab] = useState("hair"); // default
 
   return (
@@ -33,4 +33,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default AccountScreen;
