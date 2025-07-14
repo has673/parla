@@ -29,10 +29,22 @@ const ProviderCard = ({ provider }) => {
           <div className="flex flex-row justify-between my-6  items-center w-full">
             <div className="mt-2 flex items-center justify-center gap-1 text-[] text-sm">
               {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} fill="currentColor" stroke="none" size={16} />
+                <Star key={i} fill="#ff6b00" stroke="none" size={16} />
               ))}
               <span className="text-black font-medium ml-1">5.0</span>
               <span className="text-[#000000]">(110)</span>
+            </div>
+            <div className="flex flex-row gap-x-2">
+              <div className="flex gap-x-2">
+                <Image src="/x.png" width={9} height={9} alt="offer" />
+                <span className="text-sm font-normal text-[#8696BB]">
+                  Offer
+                </span>
+              </div>
+              <div className="flex gap-x-1">
+                <Image src="/tag.png" width={13} height={13} alt="offer" />
+                <span className="text-sm font-normal text-[#8696BB]">10%</span>
+              </div>
             </div>
             <div className="flex flex-row">
               <Image src="/images/male.png" width={40} height={40} alt="icon" />

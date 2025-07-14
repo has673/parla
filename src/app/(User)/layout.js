@@ -1,7 +1,5 @@
 "use client";
-
 import React, { useState } from "react";
-import { HomeTabContext } from "@/Context/HomeTabContext";
 import Sidebar from "../../../Components/Layout/Sidebar";
 import Header from "../../../Components/Layout/Header";
 
@@ -9,7 +7,7 @@ const TABS = [
   { path: "/Info", label: "Info" },
   { path: "/Rating", label: "Rating" },
   { path: "/Question", label: "Question" },
-  { path: "/Professionals", label: "Professionals" },
+  // { path: "/Professionals", label: "Professionals" },
   { path: "/Discount", label: "Discount" },
 ];
 
