@@ -33,21 +33,27 @@ export const TabLayout = ({ type }) => {
     setLoading(true);
     const data = await getDashboardData(type, gender, token, currentPage);
     console.log(data);
-    if (data.status === 200 && data?.datas.length > 0) {
+    if (data.status === 200 && data?.datas?.length > 0) {
       setProviders(data?.datas || []);
       setLoading(false);
       return;
     } else {
-      if (data?.datas.length === 0) {
+      if (data?.datas?.length === 0) {
         setProviders(data?.datas || []);
         setLoading(false);
       }
     }
   };
-  console.log(providers);
   useEffect(() => {
+    if (!token) {
+      console.log("🛑 Token not ready yet, skipping fetch");
+      return;
+    }
+
+    console.log("✅ Token available, fetching data...");
     fetchDashboardData();
-  }, [gender, type]);
+  }, [token, type, gender, currentPage]); // <-- include dependencies
+
   return (
     <div>
       {/* Row of PeopleCards */}
