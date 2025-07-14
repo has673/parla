@@ -1,5 +1,5 @@
 "use client";
-import { ArrowBigLeft, ArrowBigRight, Star } from "lucide-react";
+import { ArrowBigLeft, ArrowBigRight, Heart, Star } from "lucide-react";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 
@@ -143,13 +143,34 @@ const ChooseProfessional = () => {
             <h3 className="text-[22px] font-medium ">
               {userData?.firstName} {userData?.lastName}
             </h3>
-            <div className="flex items-center gap-1 text-[#FFC700] text-sm">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} fill="currentColor" stroke="none" size={16} />
-              ))}
-              <span className="text-black font-medium ml-1">5.0</span>
-              <span className="text-[#000000]">(110)</span>
+            <div className="flex md:flex-row flex-col justify-between w-ful">
+              {" "}
+              <div className="flex items-center gap-1 text-[#FFC700] text-sm">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} fill="currentColor" stroke="none" size={16} />
+                ))}
+                <span className="text-black font-medium ml-1">5.0</span>
+                <span className="text-[#000000]">(110)</span>
+              </div>
+              <div className="flex gap-x-2 justify-center md:my-0 my-2">
+                <div className="w-8 h-8 rounded-full bg-[#E8E8E8] flex justify-center items-center ">
+                  <span className="border w-4 h-4 rounded-full flex justify-center items-center text-xs p-1">
+                    {" "}
+                    !
+                  </span>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-[#E8E8E8] flex justify-center items-center ">
+                  <span className="border w-4 h-4 rounded-full flex justify-center items-center text-xs p-1">
+                    {" "}
+                    ?
+                  </span>
+                </div>
+                <div className="w-8 h-8 rounded-full bg-[#E8E8E8] flex justify-center items-center">
+                  <Heart color="black" height={16} width={16} />
+                </div>
+              </div>
             </div>
+
             <div className="md:w-2/5">
               {" "}
               <p className="text-base font-normal text-[var(--color-dark)]">
@@ -202,6 +223,9 @@ const ChooseProfessional = () => {
         >
           Female
         </div>
+        <button className=" h-6 w-6 flex justify-center items-center ">
+          <Image src="/filterblack.png" width={12} height={12} alt="filter" />
+        </button>
       </div>
       {loading ? (
         <Loader />

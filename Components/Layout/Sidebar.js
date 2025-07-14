@@ -45,7 +45,7 @@ const Sidebar = () => {
     },
     {
       label: "Account",
-      href: "/Service/Account",
+      href: "/Account",
       icon: "/images/Account.png",
       activeIcon: "/images/accountwhite.png",
     },

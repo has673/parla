@@ -10,6 +10,7 @@ function NotificationCard({ username, message, timestamp, number }) {
             src="/images/courtney.png"
             fill
             className=" object-cover rounded-full"
+            alt="NOTIFY"
           />
         </div>
         <div className="flex flex-col justify-around">

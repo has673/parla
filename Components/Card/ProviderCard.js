@@ -1,3 +1,4 @@
+import { Star } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
@@ -24,14 +25,14 @@ const ProviderCard = ({ provider }) => {
             <span className="text-[#5A5A5A] text-xs font-semibold py-2 flex flex-row gap-x-2">
               {provider.city} , {provider.district}
             </span>
-            <span className="text-[#5A5A5A] text-xs font-semibold flex flex-row gap-x-2">
-              110 Points
-            </span>
           </div>
           <div className="flex flex-row justify-between my-6  items-center w-full">
-            <div className="flex flex-row text-[var(--orange)] text-[13px] font-medium gap-x-3">
-              <span>Purchase</span>
-              <span>Gift to a friend</span>
+            <div className="mt-2 flex items-center justify-center gap-1 text-[] text-sm">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star key={i} fill="currentColor" stroke="none" size={16} />
+              ))}
+              <span className="text-black font-medium ml-1">5.0</span>
+              <span className="text-[#000000]">(110)</span>
             </div>
             <div className="flex flex-row">
               <Image src="/images/male.png" width={40} height={40} alt="icon" />

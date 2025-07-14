@@ -89,6 +89,7 @@ export const TabLayout = ({ type }) => {
           <Image src="/filter.png" width={12} height={12} alt="filter" />
         </button>
       </div>
+
       {loading ? (
         <Loader />
       ) : providers.length > 0 ? (
