@@ -27,7 +27,6 @@ const PaymentTabs = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("card");
     if (!stripe || !elements) return;
 
     const cardElement = elements.getElement(CardNumberElement);
@@ -41,21 +40,24 @@ const PaymentTabs = ({
     });
 
     if (error) {
-      console.error("[Stripe error]", error.message);
+      console.error("Stripe error: ", error.message);
       return;
     }
 
+    const API_BASE_URL =
+      process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     // Call your backend to create a PaymentIntent
-    const res = await fetch("/api/payment/router", {
+    const res = await fetch(`${API_BASE_URL}/api/stripeCheckoutSession`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ amount: total() * 100 }), // in cents
     });
 
-    const { clientSecret } = await res.json();
+    const data = await res.json();
 
+    const { client_secret, status } = data;
     // Confirm card payment
-    const confirmResult = await stripe.confirmCardPayment(clientSecret, {
+    const confirmResult = await stripe.confirmCardPayment(client_secret, {
       payment_method: paymentMethod.id,
     });
 
