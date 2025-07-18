@@ -11,10 +11,19 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("userData");
+    const storedUser = localStorage.getItem("user");
 
     if (storedToken) setToken(storedToken);
-    if (storedUser) setUserData(JSON.parse(storedUser));
+
+    try {
+      if (storedUser && storedUser !== "undefined") {
+        setUserData(JSON.parse(storedUser));
+      }
+    } catch (error) {
+      console.error("Failed to parse user data:", error);
+      // optionally clear corrupted user
+      localStorage.removeItem("user");
+    }
   }, []);
 
   return (

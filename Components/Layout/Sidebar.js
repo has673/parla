@@ -32,10 +32,8 @@ const Sidebar = () => {
       activeIcon: "/images/appointwhite.png",
       match: [
         "/Appointment",
-        "/Appointment/CancelAppointment",
-
-        "/Appointment/SingleAppointment",
-        "/Appointment/AppointmentDetail",
+        "/Appointment/CancelAppointment/[id]",
+        "/Appointment/AppointmentDetail/[id]",
         "/BookAppointment/",
       ],
     },

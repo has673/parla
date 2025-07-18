@@ -48,27 +48,6 @@ const SingleAppointment = () => {
     }
   };
 
-  // const deleteAppointment = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/Appointment/deleteAppointment?appointmentId=${appointmentId}`,
-  //       {
-  //         method: "DELETE",
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     if (data.status === 200) {
-  //       router.push("/Appointments");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const next = () => {
     router.push(`/Appointment/CancelAppointment/${appointmentId}`);
   };

@@ -20,33 +20,25 @@ const ProviderCard = ({ provider }) => {
             {provider.firstName} {provider.lastName}
           </h3>
 
-          <div className="flex flex-col py-4">
+          <div className="flex flex-col py-1">
             {" "}
             <span className="text-[#5A5A5A] text-xs font-semibold py-2 flex flex-row gap-x-2">
               {provider.city} , {provider.district}
             </span>
           </div>
-          <div className="flex border justify-between my-6  items-center w-full">
-            <div className="mt-2 flex items-center justify-center gap-1 text-[] text-sm">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star key={i} fill="#ff6b00" stroke="none" size={16} />
-              ))}
-              <span className="text-black font-medium ml-1">5.0</span>
-              <span className="text-[#000000]">(110)</span>
-            </div>
-            <div className="flex flex-row gap-x-2">
-              <div className="flex gap-x-2">
-                <Image src="/x.png" width={9} height={9} alt="offer" />
-                <span className="text-sm font-normal text-[#8696BB]">
-                  Offer
-                </span>
+          <div className="flex flex-col  w-full my-2">
+            <div className="relative inline-flex items-center">
+              <div className="flex">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <Star key={i} fill="#ff6b00" stroke="none" size={20} />
+                ))}
               </div>
-              <div className="flex gap-x-1">
-                <Image src="/tag.png" width={13} height={13} alt="offer" />
-                <span className="text-sm font-normal text-[#8696BB]">10%</span>
-              </div>
+              <span className="absolute -top-5 left-24 text-[#8696BB] text-[10px] font-medium">
+                (5.0)
+              </span>
             </div>
-            <div className="flex flex-row">
+
+            <div className="flex flex-row justify-end">
               <Image src="/images/male.png" width={40} height={40} alt="icon" />
               <Image
                 src="/images/female.png"
