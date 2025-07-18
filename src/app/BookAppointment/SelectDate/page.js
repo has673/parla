@@ -28,11 +28,10 @@ const SelectDate = () => {
     // Save booking date/time
     setBooking((prev) => ({
       ...prev,
-      date: dateTime.date,
-      time: dateTime.time,
+      bookingDate: dateTime.date,
+      bookingTime: dateTime.time,
     }));
 
-    // Apply discount logic if applicable
     if (booking.discount && booking.discountDetail) {
       const {
         discountStartDate,
@@ -61,7 +60,6 @@ const SelectDate = () => {
       }
 
       if (!(isDateInRange && isDayAllowed && isTimeAllowed)) {
-        console.log("Discount NOT applied");
         setBooking((prev) => ({
           ...prev,
           discount: false,

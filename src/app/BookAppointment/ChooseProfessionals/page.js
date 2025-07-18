@@ -84,9 +84,9 @@ const Professionals = () => {
   const nextPage = () => {
     if (selectedId) {
       const selectedEmployee = employees.find((emp) => emp._id === selectedId);
+      // console.log(selectedEmployee);
       const employeeType = selectedEmployee?.serviceType;
       const service = booking?.serviceCategory;
-      console.log(service);
 
       if (!selectedEmployee) {
         toast.error("Selected employee not found!");
@@ -110,6 +110,8 @@ const Professionals = () => {
         employeeId: selectedEmployee._id,
         employeeName: `${selectedEmployee.firstName} ${selectedEmployee.lastName}`,
         employeeWorkingHours: selectedEmployee.workingHours || [],
+        allSlots: selectedEmployee?.allSlots || [],
+        availableSlots: selectedEmployee?.availableSlots || [],
       }));
 
       router.push("/BookAppointment/SelectDate");
@@ -118,8 +120,7 @@ const Professionals = () => {
     }
   };
 
-  console.log(employees);
-
+  console.log(employees, "emps");
   return (
     <div className="px-6 md:px-10 max-w-full">
       <div className="flex justify-center my-4">

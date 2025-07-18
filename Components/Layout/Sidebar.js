@@ -3,9 +3,11 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { useUser } from "@/Context/userContext";
 
 const Sidebar = () => {
   const pathname = usePathname();
+  const { token } = useUser();
 
   const isActive = (paths) =>
     Array.isArray(paths) ? paths.includes(pathname) : pathname === paths;

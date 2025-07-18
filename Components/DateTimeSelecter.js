@@ -2,47 +2,60 @@
 import React, { useState, useMemo, useEffect } from "react";
 import dayjs from "dayjs";
 import { useBooking } from "@/Context/BookingContext";
-import isBetween from "dayjs/plugin/isBetween";
-dayjs.extend(isBetween);
+import Image from "next/image";
 
 const DateTimeSelector = ({ sendDateToParent }) => {
+  const colors = [
+    "##5A37E580",
+    "#5A37E5CC",
+    "#5A37E5CC",
+    "#5A37E5CC",
+    "#5A37E5CC",
+    "#5A37E5CC",
+    "#5A37E5CC",
+  ];
+
   const [selectedDate, setSelectedDate] = useState(
     dayjs().format("YYYY-MM-DD")
   );
   const [selectedTime, setSelectedTime] = useState("");
-  const { booking, setBooking } = useBooking();
-  console.log(booking);
+  const { booking } = useBooking();
+
   const workingHours = booking?.employeeWorkingHours || [];
-  console.log(workingHours);
+  const availableSlots = booking?.availableSlots || [];
+  const allSlots = booking?.allSlots || [];
+  console.log(allSlots, "all");
+  console.log(availableSlots, "available");
 
   const getNextDays = () => {
     const today = dayjs();
     return Array.from({ length: 25 }, (_, i) => today.add(i, "day"));
   };
 
-  const generateTimeSlots = (from, to) => {
-    return [`${from} - ${to}`]; // one full block
-  };
   const selectedDay = useMemo(
-    () => dayjs(selectedDate).format("dddd"), // e.g., "Monday"
+    () => dayjs(selectedDate).format("dddd"),
     [selectedDate]
   );
 
-  const daySchedule = useMemo(
-    () => workingHours.find((item) => item.day === selectedDay),
-    [selectedDay, workingHours]
+  const isEmployeeAvailableToday = useMemo(
+    () => workingHours.some((wh) => wh.day === selectedDay),
+    [workingHours, selectedDay]
   );
 
-  const availableTimes = useMemo(() => {
-    if (!daySchedule) return [];
+  const slotsForSelectedDay = useMemo(() => {
+    // First try exact date match in availableSlots
+    const availableEntry = availableSlots.find(
+      (entry) => entry.date === selectedDate
+    );
 
-    const { from, to } = daySchedule;
+    if (availableEntry) return availableEntry.slots;
 
-    // Simply return one block with "from - to"
-    return [`${from} - ${to}`];
-  }, [daySchedule]);
+    // If not found, fallback to allSlots by day (e.g., "Tuesday")
+    const allEntry = allSlots.find((entry) => entry.day === selectedDay);
 
-  // sending data to parent
+    return allEntry?.slots || [];
+  }, [availableSlots, allSlots, selectedDate, selectedDay]);
+
   useEffect(() => {
     if (selectedDate && selectedTime) {
       sendDateToParent({ date: selectedDate, time: selectedTime });
@@ -51,7 +64,7 @@ const DateTimeSelector = ({ sendDateToParent }) => {
 
   return (
     <div>
-      {/* Dates */}
+      {/* Date selection grid */}
       <div className="grid grid-cols-8 gap-y-4 py-4 md:gap-x-0">
         {getNextDays().map((date) => {
           const formatted = date.format("YYYY-MM-DD");
@@ -77,15 +90,30 @@ const DateTimeSelector = ({ sendDateToParent }) => {
         })}
       </div>
 
+      {/* Selected date and time */}
       <div className="text-[#1D1B1B] font-semibold text-[22px] flex justify-between">
         {selectedDate}
         {selectedTime && <p className="text-center">{selectedTime}</p>}
       </div>
+      <div className="flex">
+        <p className="text-lg font-semibold text-[#1D1B1BCC]">Availability</p>
+        <Image src="/user.png" height={20} width={20} alt="user" />
+        <div className="flex justify-center items-center ">
+          {colors.map((color, index) => (
+            <div
+              key={index}
+              className="w-17 h-2 rounded-md "
+              style={{ backgroundColor: color }}
+            />
+          ))}
+        </div>
+        <Image src="/users.png" height={20} width={20} alt="users" />
+      </div>
 
       {/* Time Slots */}
       <div className="grid grid-cols-3 md:grid-cols-5 gap-2 md:gap-3 justify-center py-4">
-        {availableTimes.length > 0 ? (
-          availableTimes.map((time) => (
+        {isEmployeeAvailableToday && slotsForSelectedDay.length > 0 ? (
+          slotsForSelectedDay.map((time) => (
             <div
               key={time}
               onClick={() => setSelectedTime(time)}
@@ -100,7 +128,7 @@ const DateTimeSelector = ({ sendDateToParent }) => {
           ))
         ) : (
           <p className="text-center text-gray-500 col-span-full">
-            No working hours for {selectedDay}
+            No available slots for {selectedDay}
           </p>
         )}
       </div>

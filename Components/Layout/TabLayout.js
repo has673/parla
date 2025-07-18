@@ -30,27 +30,28 @@ export const TabLayout = ({ type }) => {
 
   const [gender, setGender] = useState("male");
   const fetchDashboardData = async () => {
-    setLoading(true);
-    const data = await getDashboardData(type, gender, token, currentPage);
-    console.log(data);
-    if (data.status === 200 && data?.datas?.length > 0) {
-      setProviders(data?.datas || []);
-      setLoading(false);
-      return;
-    } else {
-      if (data?.datas?.length === 0) {
+    try {
+      setLoading(true);
+      const data = await getDashboardData(type, gender, token, currentPage);
+
+      if (data.status === 200 && data?.datas?.length > 0) {
         setProviders(data?.datas || []);
         setLoading(false);
+      } else {
+        if (data?.datas?.length === 0) {
+          setProviders(data?.datas || []);
+          setLoading(false);
+        }
       }
+    } catch (err) {
+      setLoading(false);
     }
   };
   useEffect(() => {
     if (!token) {
-      console.log("🛑 Token not ready yet, skipping fetch");
       return;
     }
 
-    console.log("✅ Token available, fetching data...");
     fetchDashboardData();
   }, [token, type, gender, currentPage]); // <-- include dependencies
 

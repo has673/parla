@@ -17,8 +17,10 @@ export const BookingProvider = ({ children }) => {
     discountDetail: null,
     branchId: null,
     employeeWorkingHours: [],
-    date: null,
-    time: null,
+    allSlots: [],
+    availableSlots: [],
+    bookingDate: null,
+    bookingTime: null,
   });
 
   // Load booking from localStorage (once on mount)
@@ -52,8 +54,10 @@ export const BookingProvider = ({ children }) => {
       discountDetail: null,
       branchId: null,
       employeeWorkingHours: [],
-      date: null,
-      time: null,
+      allSlots: [],
+      availableSlots: [],
+      bookingDate: null,
+      bookingTime: null,
     });
     localStorage.removeItem("bookingData");
   };

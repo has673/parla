@@ -26,7 +26,7 @@ const ProviderCard = ({ provider }) => {
               {provider.city} , {provider.district}
             </span>
           </div>
-          <div className="flex flex-row justify-between my-6  items-center w-full">
+          <div className="flex border justify-between my-6  items-center w-full">
             <div className="mt-2 flex items-center justify-center gap-1 text-[] text-sm">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} fill="#ff6b00" stroke="none" size={16} />

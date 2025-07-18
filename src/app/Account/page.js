@@ -5,11 +5,11 @@ import Sidebar from "../../../Components/Layout/Sidebar";
 import Account from "../../../Components/Layout/Account";
 
 // Define your tabs and their labels
-const TABS = [
-  { path: "hair", label: "Hair" },
-  { path: "massage", label: "Massage" },
-  { path: "beauty", label: "Beauty" },
-];
+// const TABS = [
+//   { path: "hair", label: "Hair" },
+//   { path: "massage", label: "Massage" },
+//   { path: "beauty", label: "Beauty" },
+// ];
 
 const AccountScreen = () => {
   const [activeTab, setActiveTab] = useState("hair"); // default
@@ -17,16 +17,15 @@ const AccountScreen = () => {
   return (
     <div>
       <HeaderTab
-        links={TABS}
+        links={[]}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        title="Account"
       />
       <div className="flex">
         <Sidebar />
-        <div className="min-h-screen w-full p-4">
-          {activeTab === "hair" && <Account type="active" />}
-          {activeTab === "massage" && <Account type="waiting" />}
-          {activeTab === "beauty" && <Account type="history" />}
+        <div className="min-h-screen w-full p-2">
+          <Account />
         </div>
       </div>
     </div>

@@ -116,6 +116,7 @@ const ChooseProfessional = () => {
           branchId: selectedService.branchId,
           serviceCategory: selectedService.category,
           discount: false,
+          discountDetail: null,
         }));
       }
 

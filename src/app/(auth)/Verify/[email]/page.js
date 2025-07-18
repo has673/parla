@@ -11,7 +11,6 @@ const Verify = () => {
   const params = useParams();
   const role = "customer";
   const { email } = params;
-  console.log(email);
 
   const emails = decodeURIComponent(email);
 
@@ -21,10 +20,6 @@ const Verify = () => {
     setCode(value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("OTP Submitted:", code);
-  };
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="flex flex-col items-center">

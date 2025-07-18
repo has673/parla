@@ -20,13 +20,15 @@ const HomeScreen = () => {
         links={TABS}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
+        title="Appointments"
       />
       <div className="flex">
         <Sidebar />
+
         <div className="min-h-screen w-full p-4">
-          {activeTab === "active" && <AppointmentTab type="active" />}
-          {activeTab === "waiting" && <AppointmentTab type="waiting" />}
-          {activeTab === "history" && <AppointmentTab type="history" />}
+          {activeTab === "active" && <AppointmentTab type="confirmed" />}
+          {activeTab === "waiting" && <AppointmentTab type="pending" />}
+          {activeTab === "history" && <AppointmentTab type="completed" />}
         </div>
       </div>
     </div>

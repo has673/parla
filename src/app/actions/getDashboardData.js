@@ -4,8 +4,9 @@ import connectMongoDB from "../../../libs/dbConnect";
 
 export async function getDashboardData(type, gender, token, currentPage) {
   try {
-    await connectMongoDB();
+    // await connectMongoDB();
 
+    console.log("=======================");
     const request = await axios.get(
       `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/getDashboardData`,
       {
@@ -20,6 +21,7 @@ export async function getDashboardData(type, gender, token, currentPage) {
         },
       }
     );
+    console.log(request);
 
     return {
       success: true,

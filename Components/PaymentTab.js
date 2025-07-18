@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ArrowDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 import {
   useStripe,
   useElements,
@@ -14,6 +15,7 @@ import { PaymentModal } from "./Modals/PaymentModal";
 import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
 import { Loader } from "./Loader";
+import { useUser } from "@/Context/userContext";
 
 const PaymentTabs = ({
   total,
@@ -32,23 +34,35 @@ const PaymentTabs = ({
   const [showModal, setShowModal] = useState(false);
   const [submitEvent, setSubmitEvent] = useState(null); // Store form event
   const [loading, setLoading] = useState(false);
-  const completeBooking = async () => {
+  const { token } = useUser();
+  const router = useRouter();
+  const completeBooking = async (confirmResult) => {
     try {
       setLoading(true);
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/Appointment/getOffers?${query}`,
+        `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/Appointment/addAppointment`,
         {
           method: "POST",
-          booking,
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
             "ngrok-skip-browser-warning": "true",
           },
+          body: JSON.stringify({
+            confirmResult,
+            booking,
+          }),
         }
       );
+      const data = await response.json();
+      console.log(data);
+      return;
+
       if (response.status === 200) {
         clearBooking();
+        setTimeout(() => {
+          router.push("/Appointments"); // or whatever route you want
+        }, 2000);
       }
       setLoading(false);
     } catch (err) {
@@ -71,6 +85,8 @@ const PaymentTabs = ({
 
     if (!stripe || !elements) return;
 
+    setLoading(true);
+
     const cardElement = elements.getElement(CardNumberElement);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -83,6 +99,7 @@ const PaymentTabs = ({
 
     if (error) {
       console.error("Stripe error:", error.message);
+      setLoading(false);
       return;
     }
 
@@ -101,15 +118,42 @@ const PaymentTabs = ({
       payment_method: paymentMethod.id,
     });
 
-    console.log(confirmResult);
-
     if (confirmResult.error) {
+      setLoading(false);
       toast.error("Payment Failed. Please Try Again");
       console.error("Payment failed:", confirmResult.error.message);
     } else {
-      toast.success("Payment Made");
-      completeBooking();
-      console.log("Payment successful!", confirmResult.paymentIntent);
+      try {
+        setLoading(true);
+
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/Appointment/addAppointment`,
+          {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+              "ngrok-skip-browser-warning": "true",
+            },
+            body: JSON.stringify({
+              confirmResult: confirmResult.paymentIntent,
+              booking,
+            }),
+          }
+        );
+        const data = await response.json();
+
+        if (response.status === 200) {
+          clearBooking();
+          setTimeout(() => {
+            router.push("/Appointment"); // or whatever route you want
+          }, 2000);
+        }
+        setLoading(false);
+      } catch (err) {
+        console.log(err);
+        setLoading(false);
+      }
     }
 
     setSubmitEvent(null); // Reset

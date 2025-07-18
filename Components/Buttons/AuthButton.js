@@ -74,7 +74,7 @@ const AuthButton = ({ btnText, data }) => {
           }
         );
         const info = request.data;
-        console.log("OTP Verified:", info);
+
         toast.success(info.message || "OTP Verified");
         console.log(data.emails, "data");
         router.push(`/ResetPassword/${encodeURIComponent(data.emails)}`);
@@ -124,7 +124,7 @@ const AuthButton = ({ btnText, data }) => {
         }
       );
       const info = request.data;
-      console.log("OTP Verified:", info);
+
       toast.success(info.message || "OTP Verified");
       router.push(`/ResetPassword/${encodeURIComponent(data.email)}`);
     } catch (error) {
