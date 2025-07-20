@@ -13,6 +13,7 @@ import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
 import { useUser } from "@/Context/userContext";
 import { ServiceTracker } from "../../../Components/Tracker";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const ChooseProfessional = () => {
   const router = useRouter();
@@ -20,7 +21,8 @@ const ChooseProfessional = () => {
   const [services, setServices] = useState([]);
   const [gender, setGender] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const { t } = useLanguage();
+  const continur = t("Date");
   const [popular, setPopular] = useState(true);
   const itemsPerPage = 10;
 
@@ -75,8 +77,11 @@ const ChooseProfessional = () => {
   };
 
   useEffect(() => {
-    getServices();
+    if (token) {
+      getServices();
+    }
   }, [gender, type, token]);
+  console.log(userData, "");
   const nextPage = () => {
     if (selectedId) {
       const selectedService = services.find(
@@ -204,7 +209,7 @@ const ChooseProfessional = () => {
           }}
         >
           {" "}
-          Popular{" "}
+          {t("popular")}
         </div>
         <h3
           onClick={() => {
@@ -215,7 +220,7 @@ const ChooseProfessional = () => {
                 ${gender === "male" ? " text-[#FF6B00]" : " text-[#000000C9]"}
               `}
         >
-          Male
+          {t("male")}
         </h3>
 
         {/* Female */}
@@ -228,7 +233,7 @@ const ChooseProfessional = () => {
                 ${gender === "female" ? " text-[#FF6B00]" : " text-[#000000C9]"}
               `}
         >
-          Female
+          {t("female")}
         </div>
         <button className=" h-6 w-6 flex justify-center items-center ">
           <Image src="/filterblack.png" width={12} height={12} alt="filter" />
@@ -279,7 +284,7 @@ const ChooseProfessional = () => {
           className="text-xl font-semibold text-[var(--orange)] cursor-pointer md:text-right text-center"
           onClick={nextPage}
         >
-          Continue
+          {continur.continue}
         </span>
       </div>
     </div>

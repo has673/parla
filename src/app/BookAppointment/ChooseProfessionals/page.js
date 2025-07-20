@@ -11,6 +11,7 @@ import { useBooking } from "@/Context/BookingContext";
 import ProfessionalCard from "../../../../Components/Card/ProfessionalCard";
 import { Loader } from "../../../../Components/Loader";
 import { ProfessionalTracker } from "../../../../Components/Tracker";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const Professionals = () => {
   const router = useRouter();
@@ -18,7 +19,8 @@ const Professionals = () => {
   const type = useTab(); // category like "hair", "massage"
   const [loading, setLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-
+  const { t } = useLanguage();
+  const date = t("Date");
   const itemsPerPage = 6;
   const { setBooking } = useBooking();
   const [avalable, setAvailable] = useState(false);
@@ -128,7 +130,7 @@ const Professionals = () => {
         <ProfessionalTracker />
       </div>
       <h2 className="text-[#1D1B1B] text-[22px] font-semibold mb-4">
-        Choose Professional
+        {t("choose")}
       </h2>
 
       {loading ? (
@@ -170,7 +172,7 @@ const Professionals = () => {
         className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold my-6 py-3 cursor-pointer"
         onClick={nextPage}
       >
-        Continue
+        {date.continue}
       </button>
     </div>
   );

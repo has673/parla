@@ -11,7 +11,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const storedToken = localStorage.getItem("token");
-    const storedUser = localStorage.getItem("user");
+    const storedUser = localStorage.getItem("userData");
 
     if (storedToken) setToken(storedToken);
 
@@ -22,7 +22,7 @@ export const UserProvider = ({ children }) => {
     } catch (error) {
       console.error("Failed to parse user data:", error);
       // optionally clear corrupted user
-      localStorage.removeItem("user");
+      localStorage.removeItem("userData");
     }
   }, []);
 

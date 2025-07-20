@@ -69,6 +69,12 @@ const Sidebar = () => {
       icon: "/store.png",
       activeIcon: "/storewgite.png",
     },
+    {
+      label: "Language",
+      href: "/Language",
+      icon: "/globeblack.png",
+      activeIcon: "/globe.png",
+    },
   ];
 
   return (

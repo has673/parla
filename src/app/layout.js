@@ -3,6 +3,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { UserProvider } from "@/Context/userContext";
 import { BookingProvider } from "@/Context/BookingContext";
+import { LanguageProvider } from "@/Context/LanguageContext";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
@@ -24,10 +25,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={`${poppins.className} ${inter.className}   bg-white`}>
         <UserProvider>
-          <BookingProvider>
-            <Toaster position="top-right" />
-            {children}
-          </BookingProvider>
+          <LanguageProvider>
+            <BookingProvider>
+              <Toaster position="top-right" />
+              {children}
+            </BookingProvider>
+          </LanguageProvider>
         </UserProvider>
       </body>
     </html>

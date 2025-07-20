@@ -4,8 +4,11 @@ import SocialIcon from "../SocialIcon";
 import Image from "next/image";
 import { Loader } from "../Loader";
 import { useUser } from "@/Context/userContext";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const Account = () => {
+  const { t } = useLanguage();
+  console.log(t, "here");
   const socialMediaIcons = [
     { src: "/fb.png", alt: "Facebook" },
     { src: "/insta.png", alt: "Instagram" },
@@ -124,119 +127,29 @@ const Account = () => {
       </div>
 
       {/* Form Fields */}
+      {/* First Name */}
       <div className="grid gap-x-5 gap-y-6 sm:gap-y-6 grid-cols-1 md:grid-cols-2">
-        {/* First Name */}
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            First Name
-          </label>
-          <input
-            type="text"
-            value={formData.firstName}
-            onChange={handleChange("firstName")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="First Name"
-          />
-        </div>
-
-        {/* Last Name */}
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            Last Name
-          </label>
-          <input
-            type="text"
-            value={formData.lastName}
-            onChange={handleChange("lastName")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="Last Name"
-          />
-        </div>
-
-        {/* Gender 
-        // <div className="flex flex-col w-full">
-        //   <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-        //     Gender
-        //   </label>
-        //   <input
-        //     type="text"
-        //     value={formData.gender}
-        //     onChange={handleChange("gender")}
-        //     className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-        //     placeholder="Gender"
-        //   />
-        // </div>
-*/}
-        {/* Email */}
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            Email
-          </label>
-          <input
-            type="email"
-            value={formData.email}
-            onChange={handleChange("email")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="Email"
-          />
-        </div>
-
-        {/* Password 
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            Password
-          </label>
-          <input
-            type="password"
-            value={formData.password}
-            onChange={handleChange("password")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="Password"
-          />
-        </div>
-        */}
-
-        {/* Card */}
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            Card
-          </label>
-          <input
-            type="text"
-            value={formData.card}
-            onChange={handleChange("card")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="Card"
-          />
-        </div>
-
-        {/* Phone */}
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            Phone
-          </label>
-          <input
-            type="text"
-            value={formData.phone}
-            onChange={handleChange("phone")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="Phone"
-          />
-        </div>
-
-        {/* Coupons */}
-        <div className="flex flex-col w-full">
-          <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
-            Coupons
-          </label>
-          <input
-            type="text"
-            value={formData.coupons}
-            onChange={handleChange("coupons")}
-            className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
-            placeholder="Coupons"
-          />
-        </div>
+        {[
+          { key: "firstName", label: "Account.first_name" },
+          { key: "lastName", label: "Account.last_name" },
+          { key: "email", label: "Account.email" },
+          { key: "card", label: "Account.card" },
+          { key: "phone", label: "Account.phone" },
+          { key: "coupons", label: "Account.coupons" },
+        ].map(({ key, label }) => (
+          <div key={key} className="flex flex-col w-full">
+            <label className="text-black font-medium text-lg md:text-[20px] mb-2 ml-1">
+              {t(label)}
+            </label>
+            <input
+              type="text"
+              value={formData[key]}
+              onChange={handleChange(key)}
+              className="border border-[#828282] rounded-[11px] h-10 md:h-17 px-2"
+              placeholder={t(label)}
+            />
+          </div>
+        ))}
       </div>
 
       {/* Social Icons */}
@@ -252,7 +165,7 @@ const Account = () => {
           onClick={handleSave}
           className="bg-[var(--orange)] text-white py-2 px-6 rounded-md mt-4 cursor-pointer"
         >
-          Save Changes
+          {t("Account.save_changes")}
         </button>
       </div>
     </div>

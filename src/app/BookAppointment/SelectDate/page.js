@@ -8,13 +8,15 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import dayjs from "dayjs";
 import { DateTracker } from "../../../../Components/Tracker";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const SelectDate = () => {
   const { userData } = useUser();
   const { booking, setBooking } = useBooking();
   const router = useRouter();
+  const { t } = useLanguage();
+  const continur = t("Date");
   const [dateTime, setDateTime] = useState({ date: "", time: "" });
-  console.log(dateTime, "date");
 
   const handleSubmit = () => {
     if (!dateTime?.date || !dateTime?.time) {
@@ -87,7 +89,7 @@ const SelectDate = () => {
 
       <DateTimeSelector
         sendDateToParent={({ date, time }) => {
-          console.log("Selected:", date, time);
+          // console.log("Selected:", date, time);
           setDateTime({ date, time });
         }}
       />
@@ -96,7 +98,7 @@ const SelectDate = () => {
         className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold h-14 my-2 justify-center items-center cursor-pointer"
         onClick={handleSubmit}
       >
-        Continue
+        {continur.continue}
       </button>
     </div>
   );

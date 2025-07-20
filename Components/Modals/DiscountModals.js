@@ -2,37 +2,15 @@
 import { X, MoreVertical } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
-
-const discounts = [
-  {
-    id: 1,
-    label: "Summer offer -100TI",
-    expiry: "31-12-2004",
-    img: "/girl.jpg", // Replace with your actual image path
-  },
-  {
-    id: 2,
-    label: "Summer offer -100TI",
-    expiry: "31-12-2004",
-    img: "/girl.jpg",
-  },
-  {
-    id: 3,
-    label: "Summer offer -100TI",
-    expiry: "31-12-2004",
-    img: "/girl.jpg",
-  },
-  {
-    id: 4,
-    label: "Summer offer -100TI",
-    expiry: "31-12-2004",
-    img: "/girl.jpg",
-  },
-];
+import { useLanguage } from "@/Context/LanguageContext";
 
 export default function DiscountModal({ offers, isOpen, onClose, getId }) {
   const [selectedId, setSelectedId] = useState(null);
+  const { t } = useLanguage();
+  const labels = t("discountModal");
+
   if (!isOpen) return null;
+
   const dateFormatter = (date) => {
     return new Date(date);
   };
@@ -50,7 +28,7 @@ export default function DiscountModal({ offers, isOpen, onClose, getId }) {
 
         {/* Title */}
         <h2 className="text-xl font-semibold text-black mb-6">
-          Discount Offer
+          {labels.title}
         </h2>
 
         {/* Discount List */}
@@ -79,13 +57,12 @@ export default function DiscountModal({ offers, isOpen, onClose, getId }) {
               >
                 {/* Left: Image + Info */}
                 <div className="flex items-center space-x-3">
-                  <div className="h-12 w-1/3 relative ">
-                    {" "}
+                  <div className="h-12 w-1/3 relative">
                     <Image
                       src="/jane.png"
                       alt="offer"
                       fill
-                      className="object-cover rounded-none "
+                      className="object-cover rounded-none"
                     />
                   </div>
 
@@ -94,7 +71,7 @@ export default function DiscountModal({ offers, isOpen, onClose, getId }) {
                       {item.name}
                     </p>
                     <p className="text-xs text-gray-500">
-                      Expiration date: {`${dateFormatter(item.endDate)}`}
+                      {labels.expiry}: {`${dateFormatter(item.endDate)}`}
                     </p>
                   </div>
                 </div>

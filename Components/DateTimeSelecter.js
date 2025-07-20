@@ -4,8 +4,10 @@ import dayjs from "dayjs";
 import { useBooking } from "@/Context/BookingContext";
 import Image from "next/image";
 import { User } from "lucide-react";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const DateTimeSelector = ({ sendDateToParent }) => {
+  const { t } = useLanguage();
   const colors = [
     "##5A37E580",
     "#5A37E5CC",
@@ -26,8 +28,6 @@ const DateTimeSelector = ({ sendDateToParent }) => {
   const workingHours = booking?.employeeWorkingHours || [];
   const availableSlots = booking?.availableSlots || [];
   const allSlots = booking?.allSlots || [];
-  console.log(allSlots, "all");
-  console.log(availableSlots, "available");
 
   const getNextDays = () => {
     const today = dayjs();
@@ -101,7 +101,7 @@ const DateTimeSelector = ({ sendDateToParent }) => {
         {/* Label and icon */}
 
         <div className="text-base sm:text-lg font-semibold text-[#1D1B1BCC]">
-          Availability
+          {t("Date.availability")}
         </div>
         <User size={18} />
 

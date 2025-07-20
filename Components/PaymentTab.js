@@ -16,6 +16,7 @@ import toast from "react-hot-toast";
 import { useBooking } from "@/Context/BookingContext";
 import { Loader } from "./Loader";
 import { useUser } from "@/Context/userContext";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const PaymentTabs = ({
   total,
@@ -30,12 +31,14 @@ const PaymentTabs = ({
   const { booking, clearBooking } = useBooking();
   const stripe = useStripe();
   const elements = useElements();
-
+  const { t } = useLanguage();
+  const labels = t("paymentTab");
   const [showModal, setShowModal] = useState(false);
-  const [submitEvent, setSubmitEvent] = useState(null); // Store form event
+  const [submitEvent, setSubmitEvent] = useState(null);
   const [loading, setLoading] = useState(false);
   const { token } = useUser();
   const router = useRouter();
+
   const completeBooking = async (confirmResult) => {
     try {
       setLoading(true);
@@ -61,7 +64,7 @@ const PaymentTabs = ({
       if (response.status === 200) {
         clearBooking();
         setTimeout(() => {
-          router.push("/Appointments"); // or whatever route you want
+          router.push("/Appointments");
         }, 2000);
       }
       setLoading(false);
@@ -73,8 +76,8 @@ const PaymentTabs = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitEvent(e); // Store event for later
-    setShowModal(true); // Show confirmation modal
+    setSubmitEvent(e);
+    setShowModal(true);
   };
 
   const handlePaymentDecision = async (didAccept) => {
@@ -125,7 +128,6 @@ const PaymentTabs = ({
     } else {
       try {
         setLoading(true);
-
         const response = await fetch(
           `${process.env.NEXT_PUBLIC_BASE_URL}/api/Customer/Appointment/addAppointment`,
           {
@@ -146,7 +148,7 @@ const PaymentTabs = ({
         if (response.status === 200) {
           clearBooking();
           setTimeout(() => {
-            router.push("/Appointment"); // or whatever route you want
+            router.push("/Appointment");
           }, 2000);
         }
         setLoading(false);
@@ -156,13 +158,13 @@ const PaymentTabs = ({
       }
     }
 
-    setSubmitEvent(null); // Reset
+    setSubmitEvent(null);
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* Tab Buttons */}
-      <div className="flex justify-between  space-x-6 mb-4">
+      <div className="flex justify-between space-x-6 mb-4">
         <button
           className={`px-4 py-2 text-[22px] font-medium ${
             activeTab === "saved"
@@ -171,7 +173,7 @@ const PaymentTabs = ({
           }`}
           onClick={() => setActiveTab("saved")}
         >
-          Saved Card
+          {labels.savedCard}
         </button>
         <button
           className={`px-4 py-1 text-[22px] font-medium ${
@@ -181,18 +183,17 @@ const PaymentTabs = ({
           }`}
           onClick={() => setActiveTab("new")}
         >
-          New Card
+          {labels.newCard}
         </button>
       </div>
 
       {activeTab === "new" && (
-        <form className="py-4  bg-white w-full" onSubmit={handleSubmit}>
+        <form className="py-4 bg-white w-full" onSubmit={handleSubmit}>
           <div className="my-2">
-            {/* Expiry */}
             <div className="border border-[#7B7B7B] rounded-xl h-11 text-black w-full p-2">
               <CardExpiryElement
                 options={{
-                  placeholder: "MM/YY",
+                  placeholder: labels.expiry,
                   style: {
                     base: {
                       fontSize: "16px",
@@ -204,12 +205,11 @@ const PaymentTabs = ({
               />
             </div>
 
-            {/* CVC + Card Holder Name */}
             <div className="my-2 flex justify-between w-full">
               <div className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2">
                 <CardCvcElement
                   options={{
-                    placeholder: "CVC",
+                    placeholder: labels.cvc,
                     style: {
                       base: {
                         fontSize: "16px",
@@ -222,24 +222,23 @@ const PaymentTabs = ({
               </div>
               <input
                 className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                placeholder="Card Holder Name"
+                placeholder={labels.cardHolder}
                 value={cardName}
                 onChange={(e) => setCardName(e.target.value)}
               />
             </div>
 
-            {/* Card Label + Number */}
             <div className="my-2 flex justify-between w-full">
               <input
                 className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2"
-                placeholder="Name of Card"
+                placeholder={labels.cardLabel}
                 value={cardLabel}
                 onChange={(e) => setCardLabel(e.target.value)}
               />
               <div className="border border-[#999999] rounded-xl h-11 text-black w-[45%] p-2">
                 <CardNumberElement
                   options={{
-                    placeholder: "Card Number",
+                    placeholder: labels.cardNumber,
                     style: {
                       base: {
                         fontSize: "16px",
@@ -256,7 +255,6 @@ const PaymentTabs = ({
             </div>
           </div>
 
-          {/* Save Card Checkbox */}
           <div className="flex items-center gap-x-2">
             <input
               type="checkbox"
@@ -273,22 +271,20 @@ const PaymentTabs = ({
               htmlFor="saveCard"
               className="text-[13px] text-[var(--color-dark)] font-medium"
             >
-              Save this Card
+              {labels.saveCard}
             </label>
           </div>
 
-          {/* Submit Button */}
           <button
             type="submit"
             disabled={!stripe || !elements}
             className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold my-6 py-3 cursor-pointer"
           >
-            {`Pay ($${total()})`}
+            {`${labels.pay} ($${total()})`}
           </button>
         </form>
       )}
 
-      {/* Saved Card UI */}
       {activeTab === "saved" && (
         <>
           <div className="flex items-center justify-between border border-[#8F8F8F] rounded-[13px] p-4">
@@ -309,8 +305,10 @@ const PaymentTabs = ({
           <div className="flex items-center justify-between border border-[#8F8F8F] rounded-[13px] p-4 mt-4">
             <input
               type="text"
-              value={discountData ? discountData.name : "Summer offer 100"}
-              placeholder="Enter Discount Code"
+              value={
+                discountData ? discountData.name : labels.discountPlaceholder
+              }
+              placeholder={labels.discountPlaceholder}
               readOnly
               className="w-full text-sm text-black focus:outline-none placeholder:text-gray-400"
             />
@@ -324,23 +322,23 @@ const PaymentTabs = ({
             <p className="text-sm text-gray-700 leading-snug">
               Lorem ipsum{" "}
               <span className="text-orange-500 font-medium">
-                dolor sit amet, consectetur
-              </span>{" "}
-              adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore
+                {labels.discountNote}
+              </span>
             </p>
           </div>
 
           <button className="bg-[var(--orange)] text-white rounded-[10px] w-full text-xl font-semibold my-6 py-3 cursor-pointer">
-            {`Pay ($${total()})`}
+            {`${labels.pay} ($${total()})`}
           </button>
         </>
       )}
+
       <PaymentModal
         isOpen={showModal}
         onClose={() => setShowModal(false)}
         onConfirm={handlePaymentDecision}
       />
+
       {loading && <Loader />}
     </div>
   );

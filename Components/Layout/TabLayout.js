@@ -8,6 +8,7 @@ import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import ProviderCard from "../Card/ProviderCard";
 import { Loader } from "../Loader";
 import { useUser } from "@/Context/userContext";
+import { useLanguage } from "@/Context/LanguageContext";
 
 export const TabLayout = ({ type }) => {
   //type is to check for example hair beatuy massage
@@ -16,6 +17,7 @@ export const TabLayout = ({ type }) => {
   const [currentPage, setCurrentPage] = useState(1); // default page is 1
   const { token } = useUser();
   const itemsPerPage = 3;
+  const { t } = useLanguage();
   const [loading, setLoading] = useState(false);
   const endOffset = itemOffset + itemsPerPage;
   const currentItems = providers.slice(itemOffset, endOffset);
@@ -72,7 +74,7 @@ export const TabLayout = ({ type }) => {
       <div className="flex justify-center md:justify-around gap-6 py-4">
         {/* Male */}
 
-        <h3 className="md:text-[22px] text-sm text-wrap text-[#1D1B1B] font-medium px-4 ">{` ${providers.length} Results`}</h3>
+        <h3 className="md:text-[22px] text-sm text-wrap text-[#1D1B1B] font-medium px-4 cursor-pointer">{` ${providers.length} Results`}</h3>
 
         <h3
           onClick={() => setGender("male")}
@@ -80,7 +82,7 @@ export const TabLayout = ({ type }) => {
           ${gender === "male" ? " text-[#FF6B00]" : " text-[#000000C9]"}
         `}
         >
-          Male
+          {t("male")}
         </h3>
 
         {/* Female */}
@@ -90,7 +92,7 @@ export const TabLayout = ({ type }) => {
           ${gender === "female" ? " text-[#FF6B00]" : " text-[#000000C9]"}
         `}
         >
-          Female
+          {t("female")}
         </div>
         <button className="bg-[#FF6B00] rounded-md md:h-8 md:w-8  h-6 w-6 flex justify-center items-center ">
           <Image src="/filter.png" width={12} height={12} alt="filter" />

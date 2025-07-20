@@ -28,16 +28,14 @@ const SidebarModal = () => {
     },
     {
       label: "Appointments",
-      href: "/Appointment/Appointments",
+      href: "/Appointment",
       icon: "/images/appoint.png",
       activeIcon: "/images/appointwhite.png",
       match: [
-        "/Appointment/Appointments",
-        "/Appointment/CancelAppointment",
-        "/Appointment/Waiting",
-        "/Appointment/SingleAppointment",
-        "/Appointment/AppointmentDetail",
-        "/Appointment/AppointentHistory",
+        "/Appointment",
+        "/Appointment/CancelAppointment/[id]",
+        "/Appointment/AppointmentDetail/[id]",
+        "/BookAppointment/",
       ],
     },
     {
@@ -48,15 +46,15 @@ const SidebarModal = () => {
     },
     {
       label: "Account",
-      href: "/Service/Account",
+      href: "/Account",
       icon: "/images/Account.png",
       activeIcon: "/images/accountwhite.png",
     },
     {
       label: "Points",
       href: "/Points",
-      icon: "/giftwhite.png",
-      activeIcon: "/gift.png",
+      icon: "/gift.png",
+      activeIcon: "/giftwhite.png",
     },
     {
       label: "Stamp Cards",
@@ -69,6 +67,12 @@ const SidebarModal = () => {
       href: "/Gift",
       icon: "/store.png",
       activeIcon: "/storewgite.png",
+    },
+    {
+      label: "Language",
+      href: "/Language",
+      icon: "/globeblack.png",
+      activeIcon: "/globe.png",
     },
   ];
 

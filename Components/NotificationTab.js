@@ -30,7 +30,7 @@ const NotificationTab = ({ type }) => {
 
       const data = await response.json();
       setNotifcations(data.data);
-      console.log(data.data);
+
       //   setPagination(data.pagination); // Save pagination info
     } catch (err) {
       console.error("Failed to fetch services:", err);

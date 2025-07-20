@@ -4,6 +4,7 @@ import { usePathname, useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Loader } from "../Loader";
+
 const AuthButton = ({ btnText, data }) => {
   const path = usePathname();
   const router = useRouter();
