@@ -14,19 +14,19 @@ const Sidebar = () => {
 
   const menuItems = [
     {
-      label: "Home",
+      label: t("menu.home"),
       href: "/HomeScreen",
       icon: "/images/home.png",
       activeIcon: "/images/home.png",
     },
     {
-      label: "Explore",
+      label: t("menu.explore"),
       href: "/UserDashboard/Quotation",
       icon: "/images/explore.png",
       activeIcon: "/images/quotation.svg",
     },
     {
-      label: "Appointments",
+      label: t("menu.appointments"),
       href: "/Appointment",
       icon: "/images/appoint.png",
       activeIcon: "/images/appointwhite.png",
@@ -38,19 +38,19 @@ const Sidebar = () => {
       ],
     },
     {
-      label: "Favorite",
+      label: t("menu.favorite"),
       href: "/Favorite",
       icon: "/images/Heart.png",
       activeIcon: "/images/paymentblue.svg",
     },
     {
-      label: "Account",
+      label: t("menu.account"),
       href: "/Account",
       icon: "/images/Account.png",
       activeIcon: "/images/accountwhite.png",
     },
     {
-      label: "Points",
+      label: t("menu.points"),
       href: "/Points",
       icon: "/gift.png",
       activeIcon: "/giftwhite.png",
@@ -58,19 +58,19 @@ const Sidebar = () => {
       height: 28,
     },
     {
-      label: "Stamp Cards",
+      label: t("menu.stamp_cards"),
       href: "/StampCard",
       icon: "/stampblack.png",
       activeIcon: "/stampwhite.png",
     },
     {
-      label: "Gift Cards",
+      label: t("menu.gift_cards"),
       href: "/Gift",
       icon: "/store.png",
       activeIcon: "/storewgite.png",
     },
     {
-      label: "Language",
+      label: t("menu.language"),
       href: "/Language",
       icon: "/globeblack.png",
       activeIcon: "/globe.png",

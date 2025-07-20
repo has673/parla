@@ -95,6 +95,8 @@ const tr = {
     expiry: "Son kullanma tarihi",
   },
   choose: "Profesyoneli Seçin",
+  cancel: "Randevuyu İptal Et",
+  appointment: "Randevu",
   appointmentModal: {
     title: "Randevuyu silmek istiyor musunuz?",
     yes: "Evet",
@@ -104,6 +106,19 @@ const tr = {
     hair: "Saç",
     massage: "Masaj",
     beauty: "Güzellik",
+  },
+  empText: "Çalışan bulunamadı",
+  ampText: "Randevu bulunamadı",
+  menu: {
+    home: "Ana Sayfa",
+    explore: "Keşfet",
+    appointments: "Randevular",
+    favorite: "Favoriler",
+    account: "Hesap",
+    points: "Puanlar",
+    stamp_cards: "Pul Kartları",
+    gift_cards: "Hediye Kartları",
+    language: "Dil",
   },
 };
 

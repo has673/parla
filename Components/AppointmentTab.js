@@ -7,11 +7,13 @@ import { Loader } from "./Loader";
 
 import ReactPaginate from "react-paginate";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const AppointmentTab = ({ type }) => {
   const [loading, setLoading] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const { token } = useUser();
+  const { t } = useLanguage();
   const itemsPerPage = 5;
   const [pagination, setPagination] = useState({
     currentPage: 1,
@@ -80,7 +82,7 @@ const AppointmentTab = ({ type }) => {
               />
             ))
           ) : (
-            <p className="text-center text-gray-500">No Appointments found</p>
+            <p className="text-center text-gray-500">{t("ampText")}</p>
           )}
         </>
       )}

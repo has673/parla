@@ -69,7 +69,7 @@ const SingleAppointment = () => {
         links={TABS}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        title="Appointments"
+        title={t("appointment")}
       />
 
       <div className="flex">

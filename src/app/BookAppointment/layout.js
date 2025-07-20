@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
           links={TABS}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
-          title="Choose Professional"
+          title={t("choose")}
         />
         <div className="flex min-h-screen">
           <Sidebar />

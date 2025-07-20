@@ -8,6 +8,7 @@ import Sidebar from "../../../../../Components/Layout/Sidebar";
 import HeaderTab from "../../../../../Components/Layout/HeaderTab";
 import { Loader } from "../../../../../Components/Loader";
 import toast from "react-hot-toast";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const CancelAppointment = () => {
   const [open, setOpen] = useState(false);
@@ -24,11 +25,11 @@ const CancelAppointment = () => {
   const router = useRouter();
   const { token } = useUser();
   const appointmentId = params?.id;
-
+  const { t } = useLanguage();
   const TABS = [
-    { path: "active", label: "Active" },
-    { path: "waiting", label: "Waiting" },
-    { path: "history", label: "History" },
+    { path: "active", label: t("tabs.active") },
+    { path: "waiting", label: t("tabs.waiting") },
+    { path: "history", label: t("tabs.history") },
   ];
 
   const openModal = () => setOpen(true);
@@ -99,7 +100,7 @@ const CancelAppointment = () => {
         links={TABS}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
-        title="Cancel Appointment"
+        title={t("cancel")}
       />
 
       <div className="flex">
@@ -312,9 +313,7 @@ const CancelAppointment = () => {
               <CancelModal onClose={closeModal} isOpen={open} />
             </div>
           ) : (
-            <p className="text-center text-gray-500 mt-10">
-              No appointment found.
-            </p>
+            <p className="text-center text-gray-500 mt-10">{t("ampText")}</p>
           )}
         </div>
       </div>

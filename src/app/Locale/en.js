@@ -92,6 +92,8 @@ const en = {
     expiry: "Expiration date",
   },
   choose: "Choose Professional",
+  cancel: "Cancel Appointment",
+  appointment: "Appointment",
 
   appointmentModal: {
     title: "Do you want to delete the appointment?",
@@ -102,6 +104,22 @@ const en = {
     hair: "Hair",
     massage: "Massage",
     beauty: "Beauty",
+    active: "Active",
+    waiting: "Waiting",
+    history: "History",
+  },
+  empText: "No Employees found",
+  ampText: "No Appointments found",
+  menu: {
+    home: "Home",
+    explore: "Explore",
+    appointments: "Appointments",
+    favorite: "Favorite",
+    account: "Account",
+    points: "Points",
+    stamp_cards: "Stamp Cards",
+    gift_cards: "Gift Cards",
+    language: "Language",
   },
 };
 

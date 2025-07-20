@@ -148,7 +148,7 @@ const Professionals = () => {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500">No Employees found</p>
+        <p className="text-center text-gray-500">{t("empText")}</p>
       )}
       <div className="flex flex-row justify-end">
         {" "}
