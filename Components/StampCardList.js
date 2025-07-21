@@ -1,4 +1,5 @@
 // components/StampCardList.tsx
+"use client";
 import React from "react";
 import StampCard from "./Card/StampCard";
 

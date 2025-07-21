@@ -110,6 +110,7 @@ const en = {
   },
   empText: "No Employees found",
   ampText: "No Appointments found",
+  providerText: "No providers found.",
   menu: {
     home: "Home",
     explore: "Explore",

@@ -109,6 +109,7 @@ const tr = {
   },
   empText: "Çalışan bulunamadı",
   ampText: "Randevu bulunamadı",
+  providerText: "Sağlayıcı bulunamadı.",
   menu: {
     home: "Ana Sayfa",
     explore: "Keşfet",

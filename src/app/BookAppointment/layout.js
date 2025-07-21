@@ -1,21 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import HeaderTab from "../../../Components/Layout/HeaderTab";
 import Sidebar from "../../../Components/Layout/Sidebar";
 import { TabContext } from "@/Context/TabContext";
-import { BookingProvider } from "@/Context/BookingContext";
 import { useLanguage } from "@/Context/LanguageContext";
 
 const Layout = ({ children }) => {
   const [activeTab, setActiveTab] = useState("hair");
 
   const { t } = useLanguage();
-  const TABS = [
-    { path: "hair", label: t("tabs.hair") },
-    { path: "massage", label: t("tabs.massage") },
-    { path: "beauty", label: t("tabs.beauty") },
-  ];
+  const TABS = useMemo(
+    () => [
+      { path: "hair", label: t("tabs.hair") },
+      { path: "massage", label: t("tabs.massage") },
+      { path: "beauty", label: t("tabs.beauty") },
+    ],
+    [t]
+  );
 
   return (
     <TabContext.Provider value={activeTab}>

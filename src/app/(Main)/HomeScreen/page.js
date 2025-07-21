@@ -5,11 +5,11 @@ import { TabLayout } from "../../../../Components/Layout/TabLayout";
 import Sidebar from "../../../../Components/Layout/Sidebar";
 import { useLanguage } from "@/Context/LanguageContext";
 
-// Define your tabs and their labels
-
 const HomeScreen = () => {
   const [activeTab, setActiveTab] = useState("hair"); // default
   const { t } = useLanguage();
+
+  // ✅ Now defined *after* t exists
   const TABS = [
     { path: "hair", label: t("tabs.hair") },
     { path: "massage", label: t("tabs.massage") },

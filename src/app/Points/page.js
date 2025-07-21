@@ -2,22 +2,17 @@
 import React, { useState } from "react";
 import Sidebar from "../../../Components/Layout/Sidebar";
 import HeaderTab from "../../../Components/Layout/HeaderTab";
-
-import Favourite from "../../../Components/Layout/favourite";
-import AppointmentButton from "../../../Components/Buttons/AppointmentButton";
-import Badge from "../../../Components/Card/Badge";
 import Image from "next/image";
-import StampcardInfo from "../../../Components/StampInfo";
 import StampCardList from "../../../Components/StampCardList";
 import ActivityScreen from "../../../Components/ActivityTable";
 
 // Define your tabs and their labels
-const TABS = [
-  { path: "offers", label: "You Claimed Offers" },
-  { path: "history", label: "Point History" },
-];
 
 const Points = () => {
+  const TABS = [
+    { path: "offers", label: "You Claimed Offers" },
+    { path: "history", label: "Point History" },
+  ];
   const [activeTab, setActiveTab] = useState("offers"); // default
 
   return (

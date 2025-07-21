@@ -5,11 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
 import { X } from "lucide-react";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const SidebarModal = () => {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
-
+  const { t } = useLanguage();
   const isActive = (paths) =>
     Array.isArray(paths) ? paths.includes(pathname) : pathname === paths;
 

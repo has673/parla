@@ -4,10 +4,12 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@/Context/userContext";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const Sidebar = () => {
   const pathname = usePathname();
   const { token } = useUser();
+  const { t } = useLanguage();
 
   const isActive = (paths) =>
     Array.isArray(paths) ? paths.includes(pathname) : pathname === paths;

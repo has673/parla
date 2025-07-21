@@ -1,21 +1,19 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import AppointmentTab from "../../../Components/AppointmentTab";
 import HeaderTab from "../../../Components/Layout/HeaderTab";
 import Sidebar from "../../../Components/Layout/Sidebar";
 import { useLanguage } from "@/Context/LanguageContext";
 
-// Define your tabs and their labels
-
 const HomeScreen = () => {
   const { t } = useLanguage();
+  const [activeTab, setActiveTab] = useState("active");
+
   const TABS = [
     { path: "active", label: t("tabs.active") },
     { path: "waiting", label: t("tabs.waiting") },
     { path: "history", label: t("tabs.history") },
   ];
-
-  const [activeTab, setActiveTab] = useState("active"); // default
 
   return (
     <div>

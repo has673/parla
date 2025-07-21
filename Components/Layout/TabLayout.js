@@ -107,7 +107,7 @@ export const TabLayout = ({ type }) => {
         ))
       ) : (
         <div className="text-center text-gray-500 py-4">
-          No providers found.
+          {t("providerText")}
         </div>
       )}
 
