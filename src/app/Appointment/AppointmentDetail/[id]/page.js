@@ -7,6 +7,7 @@ import { useUser } from "@/Context/userContext";
 import { Loader } from "../../../../../Components/Loader";
 import HeaderTab from "../../../../../Components/Layout/HeaderTab";
 import Sidebar from "../../../../../Components/Layout/Sidebar";
+import { useLanguage } from "@/Context/LanguageContext";
 
 const SingleAppointment = () => {
   const params = useParams();
@@ -16,6 +17,7 @@ const SingleAppointment = () => {
   const [appointment, setAppointment] = useState(null);
   const { token } = useUser();
 
+  const { t } = useLanguage();
   const TABS = [
     // { path: "active", label: "Active" },
     // { path: "waiting", label: "Waiting" },

@@ -21,12 +21,7 @@ const SidebarModal = () => {
       icon: "/images/home.png",
       activeIcon: "/images/home.png",
     },
-    {
-      label: "Explore",
-      href: "/UserDashboard/Quotation",
-      icon: "/images/explore.png",
-      activeIcon: "/images/quotation.svg",
-    },
+
     {
       label: "Appointments",
       href: "/Appointment",

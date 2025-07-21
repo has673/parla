@@ -21,12 +21,7 @@ const Sidebar = () => {
       icon: "/images/home.png",
       activeIcon: "/images/home.png",
     },
-    {
-      label: t("menu.explore"),
-      href: "/UserDashboard/Quotation",
-      icon: "/images/explore.png",
-      activeIcon: "/images/quotation.svg",
-    },
+
     {
       label: t("menu.appointments"),
       href: "/Appointment",
@@ -74,6 +69,12 @@ const Sidebar = () => {
     {
       label: t("menu.language"),
       href: "/Language",
+      icon: "/globeblack.png",
+      activeIcon: "/globe.png",
+    },
+    {
+      label: "Inbox",
+      href: "/Inbox",
       icon: "/globeblack.png",
       activeIcon: "/globe.png",
     },
